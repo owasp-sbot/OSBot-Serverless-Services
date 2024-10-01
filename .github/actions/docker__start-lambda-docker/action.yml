@@ -14,6 +14,7 @@ runs:
         context: "${{env.DOCKER__CONTEXT}}"
         file   : "${{env.DOCKER__FILE}}"
         push   : false
+        load   : true
         tags   : | 
           ${{ env.DOCKER_HUB__USERNAME }}/${{ env.PACKAGE_NAME }}:${{env.VERSION}}
           ${{ env.DOCKER_HUB__USERNAME }}/${{ env.PACKAGE_NAME }}:latest

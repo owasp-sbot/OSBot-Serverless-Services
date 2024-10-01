@@ -7,6 +7,7 @@ on:
 
 env:
   RELEASE_TYPE: 'minor'
+  PACKAGE_NAME: 'osbot_serverless_flows'
 
 jobs:
 

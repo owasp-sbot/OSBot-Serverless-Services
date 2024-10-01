@@ -1,12 +1,12 @@
 [tool.poetry]
-name        = "osbot_serverless_services"
+name        = "osbot_serverless_flows"
 version     = "v0.1.13"
-description = "OSBot Serverless Services"
+description = "OSBot Serverless Flows"
 authors     = ["Dinis Cruz <dinis.cruz@owasp.org>"]
 license     = "MIT"
 readme      = "README.md"
-homepage    = "https://github.com/owasp-sbot/OSBot-Serverless-Services"
-repository  = "https://github.com/owasp-sbot/OSBot-Serverless-Services"
+homepage    = "https://github.com/owasp-sbot/OSBot-Serverless-Flows"
+repository  = "https://github.com/owasp-sbot/OSBot-Serverless-Flows"
 
 [tool.poetry.dependencies]
 python          = "^3.11"

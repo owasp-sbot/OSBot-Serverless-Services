@@ -6,7 +6,7 @@ on:
       - dev
 
 env:
-  RELEASE_TYPE                                    : 'minor'
+  RELEASE_TYPE: 'minor'
 
 jobs:
 
@@ -19,7 +19,6 @@ jobs:
         uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__install@dev
         with:
           pip_install: '-r requirements-test.txt'
-          python-version: ${{ matrix.python-version }}
       - name: Run Unit Tests (using Poetry)
         uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__run-unit-tests@dev
 

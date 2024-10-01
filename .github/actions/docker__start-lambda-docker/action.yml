@@ -1,17 +1,19 @@
 name: "docker__start-lambda-docker"
 description: "Start Lambda Docker"
+
 runs:
   using: "composite"
   steps:
     - name: "Set up Docker Buildx"
-      uses: "docker/setup-buildx-action@v4"
+      uses: docker/setup-buildx-action@v4
 
-    - name: "Check docker"
+    - name: "Check docker #1"
       shell: bash
       run: |
         docker --version
         docker ps
         docker images
+
 
     - name: Build Docker image
       uses: docker/build-push-action@v5
@@ -24,3 +26,10 @@ runs:
           ${{ env.DOCKER_HUB__USERNAME }}/${{ env.PACKAGE_NAME }}:latest
         build-args: |
           VERSION=${{ env.VERSION }}
+
+    - name: "Check docker #2"
+      shell: bash
+      run: |
+        docker --version
+        docker ps
+        docker images

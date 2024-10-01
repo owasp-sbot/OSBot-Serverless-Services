@@ -14,7 +14,6 @@ class test__local_docker_image(TestCase):
         cls.function_name = 'function'
         cls.session_kwargs__lambda = Session__Kwargs__Lambda(endpoint_url=cls.endpoint_url).__locals__()
 
-    @pytest.mark.skip()
     def test__invoke_lambda(self):
         with Lambda(name=self.function_name, session_kwargs__lambda=self.session_kwargs__lambda) as _:
             assert _.invoke({}) == {'body': 'Hello from Docker Lambda!', 'statusCode': 200}

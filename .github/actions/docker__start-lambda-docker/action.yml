@@ -29,7 +29,7 @@ runs:
     - name: "Run Docker Container"
       shell: bash
       run: |
-        docker run --name my_lambda_container -d ${{ env.DOCKER_HUB__USERNAME }}/${{ env.PACKAGE_NAME }}:${{env.VERSION}}
+        docker run --name my_lambda_container -p 5002:8080 -d ${{ env.DOCKER_HUB__USERNAME }}/${{ env.PACKAGE_NAME }}:${{env.VERSION}}
 
     - name: "Verify Docker Container Running"
       shell: bash

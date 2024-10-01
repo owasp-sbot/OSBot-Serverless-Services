@@ -1,0 +1,10 @@
+services:
+  serverless_flows:
+    build:
+      context: ../../..
+      dockerfile: ./deploy/docker/osbot-serverless-flows/Dockerfile
+    platform: linux/amd64
+    container_name: osbot-serverless-flows-web
+    #ports:
+    #  - "3000:3000"
+    #entrypoint: ['./start.sh']

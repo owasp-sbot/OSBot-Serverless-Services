@@ -7,10 +7,15 @@ on:
 
 env:
   RELEASE_TYPE: 'major'
+  DOCKER__CONTEXT      : "."
+  DOCKER__FILE         : './deploy/docker/osbot-serverless-flows/Dockerfile'
+  DOCKER_HUB__USERNAME : diniscruz
+  DOCKER_HUB__TOKEN    : ${{ secrets.DOCKER_HUB__TOKEN    }}
 
 jobs:
 
   run-unit-tests:
+    if: False
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -51,3 +56,15 @@ jobs:
         uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/pypi__publish@dev
     needs:
       - increment-tag
+
+  publish-to-docker-hub:
+    name: "Publish to: Docker Hub"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Docker Hub (current version)
+        uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/docker-hub__publish@dev
+#    needs:
+#      - wait-for-pypi-publish

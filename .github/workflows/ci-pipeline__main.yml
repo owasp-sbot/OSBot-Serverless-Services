@@ -9,8 +9,9 @@ env:
   RELEASE_TYPE: 'major'
   DOCKER__CONTEXT      : "."
   DOCKER__FILE         : './deploy/docker/osbot-serverless-flows/Dockerfile'
-  DOCKER_HUB__USERNAME : diniscruz
+  DOCKER_HUB__USERNAME : "diniscruz"
   DOCKER_HUB__TOKEN    : ${{ secrets.DOCKER_HUB__TOKEN    }}
+  PACKAGE_NAME         : 'osbot_serverless_flows'
 
 jobs:
 

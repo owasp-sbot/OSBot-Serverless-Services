@@ -14,7 +14,7 @@ env:
   VERSION              : '0.4.0'
 
 jobs:
-  docker__start-lambda-docker:
+  run-unit-tests:
     name: Start Docker - Lambda
     runs-on: ubuntu-latest
     steps:
@@ -22,13 +22,6 @@ jobs:
 
       - name: Start Lambda Docker
         uses: ./.github/actions/docker__start-lambda-docker
-
-
-  run-unit-tests:
-    if: False
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
       - name: Poetry - Install Dependencies
         uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__install@dev
@@ -40,7 +33,11 @@ jobs:
         with:
           test_target: 'tests'
 
+      - name: Stop Lambda Docker
+        uses: ./.github/actions/docker__stop-lambda-docker
+
   increment-tag:
+    if: False
     name: Increment Tag - DEV
     runs-on: ubuntu-latest
     steps:

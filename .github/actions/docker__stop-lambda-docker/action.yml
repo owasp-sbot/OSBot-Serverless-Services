@@ -1,0 +1,14 @@
+name: "docker__stop-lambda-docker"
+description: "Stop Lambda Docker"
+
+runs:
+  using: "composite"
+  steps:
+#    - name: "Set up Docker Buildx"
+#      uses: docker/setup-buildx-action@v3
+
+    - name: "Check docker #2"
+      shell: bash
+      run: |        
+        docker images
+        docker ps

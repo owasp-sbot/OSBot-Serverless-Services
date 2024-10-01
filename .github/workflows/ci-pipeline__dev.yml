@@ -14,8 +14,8 @@ env:
   VERSION              : '0.4.0'
 
 jobs:
-  run-unit-tests:
-    name: Start Docker - Lambda
+  run-unit-and-integration-tests:
+    name: Run Unit and Integration Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -47,7 +47,7 @@ jobs:
         with:
           release_type: ${{ env.RELEASE_TYPE }}
     needs:
-      - run-unit-tests
+      - run-unit-and-integration-tests
 
   publish-to-pypi:
     if: False

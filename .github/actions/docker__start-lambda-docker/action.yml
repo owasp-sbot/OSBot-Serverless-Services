@@ -7,13 +7,6 @@ runs:
     - name: "Set up Docker Buildx"
       uses: docker/setup-buildx-action@v3
 
-    - name: "Check docker #1"
-      shell: bash
-      run: |
-        docker --version
-        docker ps
-        docker images
-
 
     - name: Build Docker image
       uses: docker/build-push-action@v5
@@ -29,7 +22,20 @@ runs:
 
     - name: "Check docker #2"
       shell: bash
-      run: |
-        docker --version
-        docker ps
+      run: |        
         docker images
+
+    - name: "Run Docker Container"
+      shell: bash
+      run: |
+        docker run --name my_lambda_container -d ${{ env.DOCKER_HUB__USERNAME }}/${{ env.PACKAGE_NAME }}:${{env.VERSION}}
+
+    - name: "Verify Docker Container Running"
+      shell: bash
+      run: |
+        docker ps -a
+
+    - name: "Show Container Logs"
+      shell: bash
+      run: |
+        docker logs my_lambda_container

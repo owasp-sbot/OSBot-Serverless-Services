@@ -1,12 +1,12 @@
-name       : CI Pipeline - DEV
+name       : CI Pipeline - PROD
 on:
   workflow_dispatch:
   push:
     branches:
-      - dev
+      - main
 
 env:
-  RELEASE_TYPE: 'minor'
+  RELEASE_TYPE: 'major'
 
 jobs:
 
@@ -23,11 +23,11 @@ jobs:
         uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__run-unit-tests@dev
 
   increment-tag:
-    name: Increment Tag - DEV
+    name: Increment Tag - Main
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Increment Tag (for DEV)
+      - name: Increment Tag (for Main)
         uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/git__increment-tag@dev
         with:
           release_type: ${{ env.RELEASE_TYPE }}
@@ -49,5 +49,5 @@ jobs:
 
       - name: publish-to-pypi
         uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/pypi__publish@dev
-    needs:
-      - increment-tag
+    #needs:
+    #  - increment-tag

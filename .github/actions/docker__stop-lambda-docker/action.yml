@@ -4,11 +4,20 @@ description: "Stop Lambda Docker"
 runs:
   using: "composite"
   steps:
-#    - name: "Set up Docker Buildx"
-#      uses: docker/setup-buildx-action@v3
 
-    - name: "Check docker #2"
+    - name: "Verify Docker Container Running"
       shell: bash
-      run: |        
-        docker images
-        docker ps
+      run: |
+        docker ps -a
+
+    - name: "Show Container Logs"
+      shell: bash
+      run: |
+        docker logs my_lambda_container
+
+    - name: Stop and Remove Docker Container
+      shell: bash
+      if: always()
+      run: |
+        docker stop my_lambda_container || true
+        docker rm my_lambda_container || true

@@ -10,7 +10,8 @@ repository  = "https://github.com/owasp-sbot/OSBot-Serverless-Flows"
 
 [tool.poetry.dependencies]
 python          = "^3.11"
-osbot-utils     = "*"
+osbot-aws     = "*"
+pytest = "^8.3.3"
 
 
 [build-system]

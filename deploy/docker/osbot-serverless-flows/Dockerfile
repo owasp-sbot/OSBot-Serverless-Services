@@ -1,12 +1,13 @@
-FROM python:3.12-slim
+FROM amazon/aws-lambda-python:3.12
 
-ARG VERSION=latest
-#ARG DOCKER_FOLDER=./deploy/docker/osbot-serverless-flows
+ARG VERSION=${VERSION}
 
-RUN echo "going to install version ${VERSION} of osbot-serverless-flows"
-RUN pip install osbot_serverless_flows==${VERSION}
+RUN echo "Installing version ${VERSION} of osbot_serverless_flows" \
+    && pip install osbot_serverless_flows==${VERSION}
 
 WORKDIR /app
 
-#CMD ["python", "-m", "cbr_website_beta"]
-CMD ["pip", "list"]
+COPY ./deploy/docker/osbot-serverless-flows/handler.py ${LAMBDA_TASK_ROOT}/
+
+
+CMD ["handler.lambda_handler"]

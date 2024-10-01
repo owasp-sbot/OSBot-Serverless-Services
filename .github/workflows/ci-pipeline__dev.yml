@@ -19,8 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Start Lambda Docker
-        uses: .github/actions/docker__start-lambda-docker
+        uses: ./.github/actions/docker__start-lambda-docker@dev
 
 
   run-unit-tests:

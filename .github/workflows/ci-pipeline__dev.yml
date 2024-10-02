@@ -23,11 +23,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run Tests and Integration Tests
         uses: ./.github/actions/aws__deploy-lambda
-    env:
-      AWS_ACCOUNT_ID__654654216424        : ${{ env.AWS_ACCOUNT_ID__654654216424        }}
-      AWS_ACCESS_KEY_ID__654654216424     : ${{ env.AWS_ACCESS_KEY_ID__654654216424     }}
-      AWS_SECRET_ACCESS_KEY__654654216424 : ${{ env.AWS_SECRET_ACCESS_KEY__654654216424 }}
-      AWS_DEFAULT_REGION__654654216424    : ${{ env.AWS_DEFAULT_REGION__654654216424    }}
+        env:
+          AWS_ACCOUNT_ID__654654216424        : ${{ env.AWS_ACCOUNT_ID__654654216424        }}
+          AWS_ACCESS_KEY_ID__654654216424     : ${{ env.AWS_ACCESS_KEY_ID__654654216424     }}
+          AWS_SECRET_ACCESS_KEY__654654216424 : ${{ env.AWS_SECRET_ACCESS_KEY__654654216424 }}
+          AWS_DEFAULT_REGION__654654216424    : ${{ env.AWS_DEFAULT_REGION__654654216424    }}
 
   run-unit-and-integration-tests:
     if: False

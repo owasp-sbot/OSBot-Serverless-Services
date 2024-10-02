@@ -1,4 +1,4 @@
-name       : CI Pipeline - PROD
+name : CI Pipeline - MAIN
 on:
   workflow_dispatch:
   push:
@@ -6,42 +6,39 @@ on:
       - main
 
 env:
-  RELEASE_TYPE: 'major'
-  DOCKER__CONTEXT      : "."
-  DOCKER__FILE         : './deploy/docker/osbot-serverless-flows/Dockerfile'
-  DOCKER_HUB__USERNAME : "diniscruz"
-  DOCKER_HUB__TOKEN    : ${{ secrets.DOCKER_HUB__TOKEN    }}
+  GIT__BRANCH          : 'main'
+  RELEASE_TYPE         : 'major'
   PACKAGE_NAME         : 'osbot_serverless_flows'
+  DOCKER__CONTEXT      : "."
+  DOCKER__HTTP_PORT    : 5002
+  DOCKER__FILE         : './deploy/docker/osbot-serverless-flows/Dockerfile'
+  DOCKER_HUB__TOKEN    : ${{ secrets.DOCKER_HUB__TOKEN    }}
+  DOCKER_HUB__USERNAME : "diniscruz"
 
 jobs:
 
-  run-unit-tests:
+  run-unit-and-integration-tests:
     #if: False
+    name: "Run Unit & Integration Tests"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Poetry - Install Dependencies
-        uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__install@dev
-        with:
-          pip_install: '-r requirements-test.txt'
-      - name: Run Unit Tests (using Poetry)
-        uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__run-unit-tests@dev
+      - name: Run Tests and Integration Tests
+        uses: ./.github/actions/pytest__run-unit-and-integration
 
   increment-tag:
-    name: Increment Tag - Main
+    name: Increment Tag - MAIN
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Increment Tag (for Main)
+      - name: Increment Tag
         uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/git__increment-tag@dev
         with:
           release_type: ${{ env.RELEASE_TYPE }}
     needs:
-      - run-unit-tests
+      - run-unit-and-integration-tests
 
   publish-to-pypi:
-    #if: False
     name: "Publish to: PYPI"
     permissions:
       id-token: write
@@ -58,6 +55,24 @@ jobs:
     needs:
       - increment-tag
 
+  publish-to-aws-ecr:
+    name: "Publish to: AWS ECR"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: "Wait for PyPI publish"
+        uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/pypi__wait-for-publish@dev
+
+      - name: "Publish to: AWS ECR"
+        uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/aws__publish__ecr@dev
+        env:
+          AWS_ACCOUNT_ID       : ${{ secrets.AWS_ACCOUNT_ID__654654216424        }}
+          AWS_ACCESS_KEY_ID    : ${{ secrets.AWS_ACCESS_KEY_ID__654654216424     }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY__654654216424 }}
+          AWS_DEFAULT_REGION   : ${{ secrets.AWS_DEFAULT_REGION__654654216424    }}
+    needs:
+      - publish-to-pypi
+
   publish-to-docker-hub:
     name: "Publish to: Docker Hub"
     runs-on: ubuntu-latest
@@ -69,6 +84,27 @@ jobs:
         uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/docker-hub__publish@dev
     needs: publish-to-pypi
 
+  deploy-lambda-function:
+    name: Deploy Lambda Function
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Tests and Integration Tests
+        uses: ./.github/actions/aws__deploy-lambda
+        env:
+          AWS_ACCOUNT_ID__654654216424       : ${{ secrets.AWS_ACCOUNT_ID__654654216424        }}
+          AWS_ACCESS_KEY_ID__654654216424    : ${{ secrets.AWS_ACCESS_KEY_ID__654654216424     }}
+          AWS_SECRET_ACCESS_KEY__654654216424: ${{ secrets.AWS_SECRET_ACCESS_KEY__654654216424 }}
+          AWS_DEFAULT_REGION__654654216424   : ${{ secrets.AWS_DEFAULT_REGION__654654216424    }}
+    needs:
+      - publish-to-aws-ecr
 
-#    needs:
-#      - wait-for-pypi-publish
+  run-qa-tests:
+    name: "Run QA Tests"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Tests and Integration Tests
+        uses: ./.github/actions/pytest__run-qa
+    needs:
+      - deploy-lambda-function

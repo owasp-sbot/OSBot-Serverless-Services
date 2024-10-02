@@ -1,3 +1,4 @@
+from osbot_utils.utils.Dev import pprint
 from osbot_utils.utils.Env import get_env, load_dotenv
 
 from osbot_aws.AWS_Config import aws_config
@@ -13,8 +14,27 @@ class Deploy_Lambda__OSBot_Serverless_Flows(Type_Safe):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.setup_aws_credentials()
-        self.deploy_lambda = Deploy_Lambda(self.lambda_name)
-        #self.lambda_       = self.deploy_lambda.lambda_function()
+        self.deploy_lambda   = Deploy_Lambda(self.lambda_name)
+        self.lambda_function = self.deploy_lambda.lambda_function()
+
+    def lambda_deploy(self):
+        self.lambda_setup()
+        #self.deploy_lambda.deploy()
+        self.lambda_setup_post_update()
+        return self.lambda_invoke()
+
+    def lambda_setup(self):
+        self.deploy_lambda.set_container_image(self.ecr_image_uri())
+
+    def lambda_setup_post_update(self):
+        with self.lambda_function as _:
+            if _.function_url_exists() is False:
+                _.function_url_create_with_public_access()
+
+    def lambda_invoke(self):
+        with self.lambda_function as _:
+            result = _.invoke()
+            return result
 
     def ecr_image_uri(self):
         account_id  = aws_config.account_id()

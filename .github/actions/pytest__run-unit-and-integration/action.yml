@@ -24,5 +24,11 @@ runs:
       with:
         test_target: 'tests/integration'
 
+    - name: "Show Container Logs (HERE)"
+      shell: bash
+      if: always()
+      run: |
+        docker logs ${{env.PACKAGE_NAME}} 
+
     - name: Stop Lambda Docker
       uses: ./.github/actions/docker__stop-lambda-docker

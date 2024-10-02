@@ -38,3 +38,6 @@ class test__fastapi__via_boto3(TestCase):
                                                 'isBase64Encoded'   : False ,
                                                 'multiValueHeaders' : {}    ,
                                                 'statusCode'        : 200   }
+
+    def test_hello(self):
+        assert self.invoke_lambda('/hello').get('body')== '{"message":"World!"}'

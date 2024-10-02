@@ -3,6 +3,8 @@ from unittest               import TestCase
 from osbot_utils.utils.Dev  import pprint
 from osbot_utils.utils.Env  import get_env, load_dotenv
 
+from osbot_serverless_flows.utils.Version import version__osbot_serverless_flows
+
 ENDPOINT_URL__QA_LAMBDA = 'https://serverless-flows.dev.aws.cyber-boardroom.com'
 
 class test__live_lambda_server(TestCase):
@@ -30,4 +32,9 @@ class test__live_lambda_server(TestCase):
     def test__version(self):
         response = requests.get(f"{self.endpoint_url}/version")
         assert response.status_code == 200
-        pprint(response.json())
+        assert response.json() == version__osbot_serverless_flows
+
+    def test__hello(self):
+        response = requests.get(f"{self.endpoint_url}/hello")
+        assert response.status_code == 200
+        assert response.json() == {'message': 'World!'}

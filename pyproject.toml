@@ -1,6 +1,6 @@
 [tool.poetry]
 name        = "osbot_serverless_flows"
-version     = "v0.6.0"
+version     = "v0.6.6"
 description = "OSBot Serverless Flows"
 authors     = ["Dinis Cruz <dinis.cruz@owasp.org>"]
 license     = "MIT"
@@ -11,6 +11,8 @@ repository  = "https://github.com/owasp-sbot/OSBot-Serverless-Flows"
 [tool.poetry.dependencies]
 python          = "^3.11"
 osbot-aws       = "*"
+osbot-fast-api  = "*"
+mangum          = "*"
 requests        = "*"
 
 [build-system]

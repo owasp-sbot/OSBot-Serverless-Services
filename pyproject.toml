@@ -14,7 +14,10 @@ osbot-aws       = "*"
 osbot-fast-api  = "*"
 mangum          = "*"
 requests        = "*"
+httpx           = "*"
 
 [build-system]
 requires        = ["poetry-core>=1.0.0"]
 build-backend   = "poetry.core.masonry.api"
+
+# poetry export -f requirements.txt --without-hashes > requirements.txt

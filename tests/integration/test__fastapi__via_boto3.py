@@ -1,6 +1,7 @@
 from unittest import TestCase
 
 from osbot_utils.utils.Dev import pprint
+from osbot_utils.utils.Misc import list_set
 
 from osbot_aws.aws.lambda_.Lambda import Lambda
 from osbot_aws.aws.session.Session__Kwargs__Lambda import Session__Kwargs__Lambda
@@ -26,18 +27,14 @@ class test__fastapi__via_boto3(TestCase):
                 return response
 
     def test__root(self):
-        assert self.invoke_lambda('/') == { 'body'              : '{"message":"Hello World!"}',
-                                            'headers'           : {'content-length': '26', 'content-type': 'application/json'},
-                                            'isBase64Encoded'   : False ,
-                                            'multiValueHeaders' : {}    ,
-                                            'statusCode'        : 200   }
+        response = self.invoke_lambda('/')
+        assert response.get('body'      )        == ""
+        assert response.get('statusCode')        == 307
+        assert list_set(response.get('headers')) == ['content-length', 'fast-api-request-id', 'location']
 
     def test__ping(self):
-        assert self.invoke_lambda('/ping') == { 'body'              : '{"pong":"42"}',
-                                                'headers'           : {'content-length': '13', 'content-type': 'application/json'},
-                                                'isBase64Encoded'   : False ,
-                                                'multiValueHeaders' : {}    ,
-                                                'statusCode'        : 200   }
+        response = self.invoke_lambda('/info/ping')
+        assert response.get('body'      )         == '{"pong":"42"}'
+        assert response.get('statusCode')        == 200
+        assert list_set(response.get('headers')) == ['content-length', 'content-type', 'fast-api-request-id']
 
-    def test_hello(self):
-        assert self.invoke_lambda('/hello').get('body')== '{"message":"World!"}'

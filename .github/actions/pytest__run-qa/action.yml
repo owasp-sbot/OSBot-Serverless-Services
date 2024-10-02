@@ -14,6 +14,4 @@ runs:
     - name: Run Unit Tests (using Poetry)
       uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__run-unit-tests@dev
       with:
-        test_target: 'tests/integration'
-      env:
-        TARGET_SERVER: 'https://a4sbatx723cfs7tw3kbiifv37q0evpcp.lambda-url.eu-west-1.on.aws'
+        test_target: 'tests/qa'

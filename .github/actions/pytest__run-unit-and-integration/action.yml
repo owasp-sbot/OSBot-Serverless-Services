@@ -18,8 +18,6 @@ runs:
       uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__run-unit-tests@dev
       with:
         test_target: 'tests'
-      env:
-        TARGET_SERVER: 'http://localhost:5002'
 
     - name: Stop Lambda Docker
       uses: ./.github/actions/docker__stop-lambda-docker

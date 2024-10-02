@@ -1,9 +1,5 @@
 from unittest import TestCase
-
-import pytest
 import requests
-from osbot_utils.utils.Env import get_env
-
 from osbot_aws.testing.Temp__Random__AWS_Credentials import Temp__Random__AWS_Credentials
 
 from osbot_aws.aws.lambda_.Lambda                   import Lambda
@@ -13,7 +9,7 @@ from osbot_aws.aws.session.Session__Kwargs__Lambda  import Session__Kwargs__Lamb
 class test__local_docker_image(TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.endpoint_url  = get_env('TARGET_SERVER')
+        cls.endpoint_url  = 'http://localhost:5002'
         cls.function_name = 'function'
         cls.session_kwargs__lambda = Session__Kwargs__Lambda(endpoint_url=cls.endpoint_url).__locals__()
 

@@ -5,6 +5,11 @@ runs:
   using: "composite"
   steps:
 
+    - name: "Show Container Logs"
+      shell: bash
+      run: |
+        docker logs ${{env.PACKAGE_NAME}} 
+
     - name: Stop and Remove Docker Container
       shell: bash
       if: always()

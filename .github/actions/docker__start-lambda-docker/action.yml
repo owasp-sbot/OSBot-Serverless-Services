@@ -7,6 +7,11 @@ runs:
     - name: "Set up Docker Buildx"
       uses: docker/setup-buildx-action@v3
 
+    - name: Git Update Current Branch
+      uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/git__update_branch@dev
+
+    - name: Set $Version from file
+      uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/git__read_version@dev
 
     - name: Build Docker image
       uses: docker/build-push-action@v5
@@ -19,24 +24,9 @@ runs:
           ${{ env.DOCKER_HUB__USERNAME }}/${{ env.PACKAGE_NAME }}:${{env.VERSION}}
           ${{ env.DOCKER_HUB__USERNAME }}/${{ env.PACKAGE_NAME }}:latest
         build-args: |
-          VERSION=${{ env.VERSION }}
-
-    - name: "Check docker #2"
-      shell: bash
-      run: |        
-        docker images
+          VERSION=${{ env.VERSION }}    
 
     - name: "Run Docker Container"
       shell: bash
       run: |
-        docker run --name my_lambda_container -p 5002:8080 -d ${{ env.DOCKER_HUB__USERNAME }}/${{ env.PACKAGE_NAME }}:${{env.VERSION}}
-
-    - name: "Verify Docker Container Running"
-      shell: bash
-      run: |
-        docker ps -a
-
-    - name: "Show Container Logs"
-      shell: bash
-      run: |
-        docker logs my_lambda_container
+        docker run --name ${{PACKAGE_NAME}} -p ${{env.DOCKER__HTTP_PORT}}:8080 -d ${{ env.DOCKER_HUB__USERNAME }}/${{ env.PACKAGE_NAME }}:${{env.VERSION}}    

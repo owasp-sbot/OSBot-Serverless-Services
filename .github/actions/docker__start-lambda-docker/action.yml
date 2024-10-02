@@ -17,7 +17,7 @@ runs:
       uses: docker/build-push-action@v5
       with:
         context: "${{env.DOCKER__CONTEXT}}"
-        file   : "${{env.DOCKER__FILE}}"
+        file   : "${{env.DOCKER__FILE__FOR_TESTS}}"
         push   : false
         load   : true
         tags   : | 

@@ -10,7 +10,7 @@ env:
   RELEASE_TYPE         : 'minor'
   PACKAGE_NAME         : 'osbot_serverless_flows'
   DOCKER__CONTEXT      : "."
-  DOCKER__HTTP_PORT    : 5003
+  DOCKER__HTTP_PORT    : 5002
   DOCKER__FILE         : './deploy/docker/osbot-serverless-flows/Dockerfile'
   DOCKER_HUB__USERNAME : "diniscruz"
 

@@ -60,7 +60,7 @@ if __name__ == '__main__':
     with Deploy_Lambda__OSBot_Serverless_Flows() as _:
         print(f"... deploying lambda function: {_.lambda_name}")
         _.deploy()
-        response = _.lambda_invoke()
+        response = _.invoke()
         print(f"... invocation response: {response}")
         function_url = _.lambda_function.function_url()
         print(f"...you can try it at {function_url}")

@@ -16,3 +16,15 @@ class test_Flow__Url_Screenshot(TestCase):
         #new_page = browser.new_page()
         #pprint(new_page)
         # from osbot_serverless_flows.flows.url_screenshot.Flow__Url_Screenshot import Flow__Url_Screenshot
+
+    def test_open_playwright(self):
+
+        browser_chrome = Playwright_Browser__Chrome()
+        browser = browser_chrome.browser()
+        pprint(browser)
+        page = browser.new_page()
+        pprint(page)
+        pprint(page.goto('https://www.google.com'))
+        pprint(page.url)
+
+        browser_chrome.stop_playwright_and_process()

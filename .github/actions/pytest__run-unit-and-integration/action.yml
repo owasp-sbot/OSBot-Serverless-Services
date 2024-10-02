@@ -18,11 +18,6 @@ runs:
       uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__run-unit-tests@dev
       with:
         test_target: 'tests'
-      env:
-        AWS_ACCOUNT_ID__654654216424       : ${{ env.AWS_ACCOUNT_ID__654654216424        }}
-        AWS_ACCESS_KEY_ID__654654216424    : ${{ env.AWS_ACCESS_KEY_ID__654654216424     }}
-        AWS_SECRET_ACCESS_KEY__654654216424: ${{ env.AWS_SECRET_ACCESS_KEY__654654216424 }}
-        AWS_DEFAULT_REGION__654654216424   : ${{ env.AWS_DEFAULT_REGION__654654216424    }}
 
     - name: Stop Lambda Docker
       uses: ./.github/actions/docker__stop-lambda-docker

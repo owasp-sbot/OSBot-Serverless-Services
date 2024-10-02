@@ -9,5 +9,5 @@ runs:
       shell: bash
       if: always()
       run: |
-        docker stop ${{PACKAGE_NAME}} || true
-        docker rm   ${{PACKAGE_NAME}} || true
+        docker stop ${{env.PACKAGE_NAME}} || true
+        docker rm   ${{env.PACKAGE_NAME}} || true

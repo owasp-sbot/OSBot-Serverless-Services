@@ -6,14 +6,15 @@ on:
       - main
 
 env:
-  GIT__BRANCH          : 'main'
-  RELEASE_TYPE         : 'major'
-  PACKAGE_NAME         : 'osbot_serverless_flows'
-  DOCKER__CONTEXT      : "."
-  DOCKER__HTTP_PORT    : 5002
-  DOCKER__FILE         : './deploy/docker/osbot-serverless-flows/Dockerfile'
-  DOCKER_HUB__TOKEN    : ${{ secrets.DOCKER_HUB__TOKEN    }}
-  DOCKER_HUB__USERNAME : "diniscruz"
+  GIT__BRANCH            : 'main'
+  RELEASE_TYPE           : 'major'
+  PACKAGE_NAME           : 'osbot_serverless_flows'
+  DOCKER__CONTEXT        : "."
+  DOCKER__HTTP_PORT      : 5002
+  DOCKER__FILE           : './deploy/docker/osbot-serverless-flows/Dockerfile'
+  DOCKER__FILE__FOR_TESTS: './deploy/docker/osbot-serverless-flows__integration-tests/Dockerfile'
+  DOCKER_HUB__TOKEN      : ${{ secrets.DOCKER_HUB__TOKEN    }}
+  DOCKER_HUB__USERNAME   : "diniscruz"
 
 jobs:
 

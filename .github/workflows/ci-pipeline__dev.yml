@@ -15,7 +15,6 @@ env:
   DOCKER_HUB__TOKEN    : ${{ secrets.DOCKER_HUB__TOKEN    }}
   DOCKER_HUB__USERNAME : "diniscruz"
 
-
 jobs:
 
   run-unit-and-integration-tests:
@@ -27,7 +26,17 @@ jobs:
       - name: Run Tests and Integration Tests
         uses: ./.github/actions/pytest__run-unit-and-integration
 
+  run-qa-tests:
+    #if: False
+    name: "Run QA Tests"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Tests and Integration Tests
+        uses: ./.github/actions/pytest__run-qa
+
   increment-tag:
+    if: False
     name: Increment Tag - DEV
     runs-on: ubuntu-latest
     steps:

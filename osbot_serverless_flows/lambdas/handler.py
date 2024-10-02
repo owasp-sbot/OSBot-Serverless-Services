@@ -3,16 +3,22 @@ from fastapi import FastAPI
 
 from mangum import Mangum
 
+from osbot_serverless_flows.utils.Version import version__osbot_serverless_flows
+
 app = FastAPI()
 
 
 @app.get("/")
-async def root():
+def root():
     return {"message": "Hello World!"}
 
 @app.get("/ping")
-async def ping():
+def ping():
     return {"pong": "42"}
+
+@app.get("/version")
+def version():
+    return version__osbot_serverless_flows
 
 
 run = Mangum(app)

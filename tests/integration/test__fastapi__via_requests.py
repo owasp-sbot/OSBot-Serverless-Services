@@ -2,6 +2,8 @@ import requests
 from unittest import TestCase
 from osbot_utils.utils.Json import json_parse
 
+from osbot_serverless_flows.utils.Version import version__osbot_serverless_flows
+
 
 def create_payload_for_path(path):
     return  {   "resource"      : ""    ,
@@ -59,6 +61,18 @@ class test__fastapi__via_requests(TestCase):
                                                                  'responses': { '200': { 'content': { 'application/json': { 'schema': { }}},
                                                                                          'description': 'Successful '
                                                                                                         'Response'}},
-                                                                 'summary': 'Ping'}}}}
+                                                                 'summary': 'Ping'}},
+                                             '/version': {'get': {'operationId': 'version_version_get',
+                                                                  'responses': {'200': {
+                                                                      'content': {'application/json': {'schema': {}}},
+                                                                      'description': 'Successful '
+                                                                                     'Response'}},
+                                                                  'summary': 'Version'}}
+                                             }}
 
 
+    def test__version(self):
+        payload  = create_payload_for_path('/version')
+        response = requests.post(self.invoke_url, headers=self.headers, json=payload)
+        assert response.status_code == 200
+        assert response.json().get('body') == f'"{version__osbot_serverless_flows}"'

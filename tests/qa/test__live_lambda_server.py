@@ -30,3 +30,8 @@ class test__live_lambda_server(TestCase):
         response = requests.get(f"{self.endpoint_url}/openapi.json")
         assert response.status_code == 200
         assert "openapi" in response.json()
+
+    def test__version(self):
+        response = requests.get(f"{self.endpoint_url}/version")
+        assert response.status_code == 200
+        pprint(response.json())

@@ -16,7 +16,7 @@ runs:
 
     - name: Set $Version from file
       uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/git__read_version@dev
-      
+
     - name: Run Unit Tests (using Poetry)
       uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__run-unit-tests@dev
       with:

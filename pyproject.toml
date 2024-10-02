@@ -11,6 +11,8 @@ repository  = "https://github.com/owasp-sbot/OSBot-Serverless-Flows"
 [tool.poetry.dependencies]
 python          = "^3.11"
 osbot-aws       = "*"
+osbot-fast-api  = "*"
+mangum          = "*"
 requests        = "*"
 
 [build-system]

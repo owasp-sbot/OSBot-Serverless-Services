@@ -1,10 +1,18 @@
-from osbot_serverless_flows.utils.Version import version__osbot_serverless_flows
+from fastapi import FastAPI
 
 
-def run(event, context):
-    print("******* in the lambda function ***** ")
-    message = f'Hello from main code Lambda! | version: {version__osbot_serverless_flows}'
-    return {
-        'statusCode': 200,
-        'body': message
-    }
+from mangum import Mangum
+
+app = FastAPI()
+
+
+@app.get("/")
+async def root():
+    return {"message": "Hello World!"}
+
+@app.get("/ping")
+async def ping():
+    return {"pong": "42"}
+
+
+run = Mangum(app)

@@ -1,13 +1,9 @@
-from unittest import TestCase
-
 import requests
-from osbot_utils.utils.Dev import pprint
-from osbot_utils.utils.Env import get_env, load_dotenv
-from osbot_utils.utils.Http import GET
+from unittest               import TestCase
+from osbot_utils.utils.Dev  import pprint
+from osbot_utils.utils.Env  import get_env, load_dotenv
 
-from osbot_serverless_flows.utils.Version import version__osbot_serverless_flows
-
-ENDPOINT_URL__QA_LAMBDA = 'https://a4sbatx723cfs7tw3kbiifv37q0evpcp.lambda-url.eu-west-1.on.aws'
+ENDPOINT_URL__QA_LAMBDA = 'https://serverless-flows.dev.aws.cyber-boardroom.com'
 
 class test__live_lambda_server(TestCase):
 

@@ -17,11 +17,15 @@ class Deploy_Lambda__OSBot_Serverless_Flows(Type_Safe):
         self.deploy_lambda   = Deploy_Lambda(self.lambda_name)
         self.lambda_function = self.deploy_lambda.lambda_function()
 
-    def lambda_deploy(self):
+    def deploy(self):
         self.lambda_setup()
-        #self.deploy_lambda.deploy()
+        self.deploy_lambda.deploy()
         self.lambda_setup_post_update()
-        return self.lambda_invoke()
+
+    def invoke(self):
+        with self.lambda_function as _:
+            result = _.invoke()
+            return result
 
     def lambda_setup(self):
         self.deploy_lambda.set_container_image(self.ecr_image_uri())
@@ -31,10 +35,7 @@ class Deploy_Lambda__OSBot_Serverless_Flows(Type_Safe):
             if _.function_url_exists() is False:
                 _.function_url_create_with_public_access()
 
-    def lambda_invoke(self):
-        with self.lambda_function as _:
-            result = _.invoke()
-            return result
+
 
     def ecr_image_uri(self):
         account_id  = aws_config.account_id()
@@ -49,3 +50,17 @@ class Deploy_Lambda__OSBot_Serverless_Flows(Type_Safe):
         aws_config.set_region                 (get_env('AWS_DEFAULT_REGION__654654216424'   ))
         aws_config.set_aws_access_key_id      (get_env('AWS_ACCESS_KEY_ID__654654216424'    ))
         aws_config.set_aws_secret_access_key  (get_env('AWS_SECRET_ACCESS_KEY__654654216424'))
+
+
+if __name__ == '__main__':
+    print("****************************************************")
+    print("****   Deploy_Lambda__OSBot_Serverless_Flows    ****")
+    print("****************************************************")
+    print()
+    with Deploy_Lambda__OSBot_Serverless_Flows() as _:
+        print(f"... deploying lambda function: {_.lambda_name}")
+        _.deploy()
+        response = _.lambda_invoke()
+        print(f"... invocation response: {response}")
+        function_url = _.lambda_function.function_url()
+        print(f"...you can try it at {function_url}")

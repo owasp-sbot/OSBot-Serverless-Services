@@ -1,3 +1,5 @@
+from osbot_utils.utils.Env import get_env, load_dotenv
+
 from osbot_aws.AWS_Config import aws_config
 from osbot_utils.base_classes.Type_Safe import Type_Safe
 
@@ -19,3 +21,10 @@ class Deploy_Lambda__OSBot_Serverless_Flows(Type_Safe):
         image_name  = self.lambda_name
         image_tag   = version__osbot_serverless_flows
         return f'{account_id}.dkr.ecr.{region_name}.amazonaws.com/{image_name}:{image_tag}'
+
+    def setup_aws_credentials(self):
+        load_dotenv()
+        aws_config.set_aws_session_account_id (get_env('AWS_ACCOUNT_ID__654654216424'       ))
+        aws_config.set_region                 (get_env('AWS_DEFAULT_REGION__654654216424'   ))
+        aws_config.set_aws_access_key_id      (get_env('AWS_ACCESS_KEY_ID__654654216424'    ))
+        aws_config.set_aws_secret_access_key  (get_env('AWS_SECRET_ACCESS_KEY__654654216424'))

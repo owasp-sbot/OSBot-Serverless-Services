@@ -1,4 +1,4 @@
-name       : CI Pipeline - DEV
+name : CI Pipeline - DEV
 on:
   workflow_dispatch:
   push:
@@ -12,6 +12,7 @@ env:
   DOCKER__CONTEXT      : "."
   DOCKER__HTTP_PORT    : 5002
   DOCKER__FILE         : './deploy/docker/osbot-serverless-flows/Dockerfile'
+  DOCKER_HUB__TOKEN    : ${{ secrets.DOCKER_HUB__TOKEN    }}
   DOCKER_HUB__USERNAME : "diniscruz"
 
 

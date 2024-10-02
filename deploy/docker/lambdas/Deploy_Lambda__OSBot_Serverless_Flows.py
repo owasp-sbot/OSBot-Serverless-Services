@@ -12,6 +12,7 @@ class Deploy_Lambda__OSBot_Serverless_Flows(Type_Safe):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.setup_aws_credentials()
         self.deploy_lambda = Deploy_Lambda(self.lambda_name)
         #self.lambda_       = self.deploy_lambda.lambda_function()
 

@@ -84,4 +84,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY__654654216424 }}
           AWS_DEFAULT_REGION   : eu-west-1
     needs:
-      - increment-tag
+      - publish-to-pypi

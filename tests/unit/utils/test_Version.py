@@ -3,7 +3,7 @@ from unittest import TestCase
 from osbot_utils.utils.Files import file_name, folder_name, parent_folder
 
 import osbot_serverless_flows
-from osbot_serverless_flows.utils.Version import Version, version
+from osbot_serverless_flows.utils.Version import Version, version__osbot_serverless_flows
 
 
 class test_Version(TestCase):
@@ -21,4 +21,4 @@ class test_Version(TestCase):
             assert file_name    (_.path_version_file()) == 'version'
 
     def test_value(self):
-        assert self.version.value() == version
+        assert self.version.value() == version__osbot_serverless_flows

@@ -18,4 +18,4 @@ class Version(Type_Safe):
         value = file_contents(self.path_version_file()) or ""
         return value.strip()
 
-version = Version().value()
+version__osbot_serverless_flows = Version().value()

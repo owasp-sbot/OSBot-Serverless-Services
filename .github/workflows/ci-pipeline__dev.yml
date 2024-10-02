@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run Tests and Integration Tests
-        uses: ./.github/actions/tests__run-unit-and-integration
+        uses: ./.github/actions/pytest__run-unit-and-integration
 
   increment-tag:
     if: False
@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Increment Tag (for DEV)
+      - name: Increment Tag
         uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/git__increment-tag@dev
         with:
           release_type: ${{ env.RELEASE_TYPE }}

@@ -22,27 +22,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Start Lambda Docker
-        uses: ./.github/actions/docker__start-lambda-docker
-
-      - name: Poetry - Install Dependencies
-        uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__install@dev
-        with:
-          pip_install: '-r requirements-test.txt'
-
-      - name: Run Unit Tests (using Poetry)
-        uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__run-unit-tests@dev
-        with:
-          test_target: 'tests'
-        env:
-          AWS_ACCOUNT_ID__654654216424       : ${{ secrets.AWS_ACCOUNT_ID__654654216424        }}
-          AWS_ACCESS_KEY_ID__654654216424    : ${{ secrets.AWS_ACCESS_KEY_ID__654654216424     }}
-          AWS_SECRET_ACCESS_KEY__654654216424: ${{ secrets.AWS_SECRET_ACCESS_KEY__654654216424 }}
-          AWS_DEFAULT_REGION__654654216424   : ${{ secrets.AWS_DEFAULT_REGION__654654216424    }}
-
-      - name: Stop Lambda Docker
-        uses: ./.github/actions/docker__stop-lambda-docker
+      - name: Run Tests and Integration Tests
+        uses: ./.github/actions/tests__run-unit-and-integration
 
   increment-tag:
     if: False

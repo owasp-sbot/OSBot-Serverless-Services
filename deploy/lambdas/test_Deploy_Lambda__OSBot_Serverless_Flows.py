@@ -2,8 +2,8 @@ from unittest import TestCase
 
 from osbot_utils.utils.Dev import pprint
 
-from deploy.docker.lambdas.Deploy_Lambda__OSBot_Serverless_Flows import Deploy_Lambda__OSBot_Serverless_Flows
-from osbot_serverless_flows.utils.Version import version__osbot_serverless_flows
+from deploy.lambdas.Deploy_Lambda__OSBot_Serverless_Flows import Deploy_Lambda__OSBot_Serverless_Flows
+from osbot_serverless_flows.utils.Version                 import version__osbot_serverless_flows
 
 
 class test_Deploy_Lambda__OSBot_Serverless_Flows(TestCase):

@@ -9,12 +9,14 @@ homepage    = "https://github.com/owasp-sbot/OSBot-Serverless-Flows"
 repository  = "https://github.com/owasp-sbot/OSBot-Serverless-Flows"
 
 [tool.poetry.dependencies]
-python          = "^3.11"
-osbot-aws       = "*"
-osbot-fast-api  = "*"
-mangum          = "*"
-requests        = "*"
-httpx           = "*"
+python           = "^3.11"
+osbot-aws        = "*"
+osbot-fast-api   = "*"
+mangum           = "*"
+requests         = "*"
+httpx            = "*"
+osbot_playwright = "*"
+bs4              = "*"
 
 [build-system]
 requires        = ["poetry-core>=1.0.0"]

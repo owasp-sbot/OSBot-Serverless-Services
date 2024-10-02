@@ -3,6 +3,8 @@ FROM amazon/aws-lambda-python:3.12
 RUN pip install osbot-aws osbot-fast-api
 RUN pip install requests mangum httpx
 
+RUN pip install osbot_playwright bs4
+
 WORKDIR /app
 COPY ../../../osbot_serverless_flows /app/osbot_serverless_flows
 

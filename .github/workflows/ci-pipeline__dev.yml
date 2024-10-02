@@ -73,6 +73,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: "Wait for PyPI publish"
+        uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/pypi__wait-for-publish@dev
 
       - name: "Publish to: AWS ECR"
         uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/aws__publish__ecr@dev

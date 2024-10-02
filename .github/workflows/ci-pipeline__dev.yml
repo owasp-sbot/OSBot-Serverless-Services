@@ -26,15 +26,6 @@ jobs:
       - name: Run Tests and Integration Tests
         uses: ./.github/actions/pytest__run-unit-and-integration
 
-  run-qa-tests:
-    #if: False
-    name: "Run QA Tests"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run Tests and Integration Tests
-        uses: ./.github/actions/pytest__run-qa
-
   increment-tag:
     if: False
     name: Increment Tag - DEV
@@ -108,3 +99,13 @@ jobs:
           AWS_DEFAULT_REGION__654654216424   : ${{ secrets.AWS_DEFAULT_REGION__654654216424    }}
     needs:
       - publish-to-aws-ecr
+
+  run-qa-tests:
+    name: "Run QA Tests"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Tests and Integration Tests
+        uses: ./.github/actions/pytest__run-qa
+    needs:
+      - deploy-lambda-function

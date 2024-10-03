@@ -47,9 +47,9 @@ class Playwright__Serverless(Type_Safe):
     def browser__exists(self):
         return self.playwright_cli.browser_installed__chrome()
 
-    def browser__install(self):
-        if self.browser__exists() is False:
-            return self.playwright_cli.install__chrome()
+    def browser__install(self):                                     # todo: see if we use the version that was downloaded during the docker image install
+        if self.browser__exists() is False:                         #       which is downloaded to: /root/.cache/ms-playwright/chromium-1134
+            return self.playwright_cli.install__chrome()            #       and                   : /root/.cache/ms-playwright/ffmpeg-1010
         return True
 
     def browser__launch_kwargs(self):

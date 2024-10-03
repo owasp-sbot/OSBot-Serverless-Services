@@ -1,9 +1,7 @@
 from unittest                                                   import TestCase
-
-from playwright.async_api import Playwright, Browser
-
-from osbot_utils.utils.Threads import async_invoke_in_new_loop
-
+from osbot_utils.utils.Misc                                     import list_set
+from playwright.async_api                                       import Playwright, Browser, Response, Request, Frame
+from osbot_utils.utils.Threads                                  import async_invoke_in_new_loop
 from osbot_utils.utils.Env                                      import in_github_action
 from osbot_utils.utils.Files                                    import file_name, file_exists, folder_exists, folder_name
 from osbot_serverless_flows.playwright.Playwright__Serverless   import Playwright__Serverless
@@ -37,13 +35,40 @@ class test_Playwright__Serverless(TestCase):
     def test_chrome_path(self):
         with self.playwright__serverless as _:
             chrome_path = _.chrome_path()
+            assert file_exists(chrome_path)
             if in_github_action():
-                assert chrome_path.endswith('chrome') is True
+                assert file_name(chrome_path) == 'chrome'
             else:
-                assert file_exists(chrome_path)
                 assert file_name(chrome_path) == 'Chromium'
 
+    def test_goto(self):
+        with self.playwright__serverless as _:
+            url      = "https://www.google.com/"
+            response = async_invoke_in_new_loop(_.goto(url))
+            frame    = response.frame
+            headers  = response.headers
+            ok       = response.ok
+            request  = response.request
+            status   = response.status
+            url      = response.url
+            assert type(response) == Response
+            assert type(frame   ) == Frame
+            assert type(headers ) == dict
+            assert type(ok      ) == bool
+            assert type(request ) == Request
+            assert type(status  ) == int
+            assert type(url     ) == str
 
+            assert response.url   == url
+            #assert response.method == 'GET'
+            assert type(response.request) == Request
+            assert list_set(headers) == [ 'accept-ch',  'alt-svc', 'cache-control', 'content-encoding',
+                                          'content-length', 'content-security-policy-report-only', 'content-type',
+                                          'cross-origin-opener-policy', 'date', 'expires', 'p3p', 'permissions-policy',
+                                          'report-to', 'server', 'x-frame-options', 'x-xss-protection']
+            #obj_info(response)
+
+            #assert result.ok is True
 
     def test_playwright(self):
         with self.playwright__serverless as _:

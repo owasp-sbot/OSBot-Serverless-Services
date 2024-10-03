@@ -1,10 +1,13 @@
 import requests
 from unittest               import TestCase
 
+from osbot_aws.apis.shell.Lambda_Shell import SHELL_VAR
 from osbot_fast_api.utils.Version import version__osbot_fast_api
+from osbot_utils.utils.Dev import pprint
 from osbot_utils.utils.Env  import get_env, load_dotenv
 
 from osbot_serverless_flows.utils.Version import version__osbot_serverless_flows
+from osbot_serverless_flows.utils._for_osbot_aws.Http__Remote_Shell import Http__Remote_Shell
 
 ENDPOINT_URL__QA_LAMBDA = 'https://serverless-flows.dev.aws.cyber-boardroom.com'
 
@@ -28,4 +31,3 @@ class test__live_lambda_server(TestCase):
         response = requests.get(f"{self.endpoint_url}/openapi.json")
         assert response.status_code == 200
         assert "openapi" in response.json()
-

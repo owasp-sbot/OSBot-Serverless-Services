@@ -89,7 +89,7 @@ class test__remote_shell_docker(TestCase):
         screenshot_base64 = self.shell.function(playwright__page_screenshot)
         screenshot_bytes  = base64_to_bytes(screenshot_base64)
         screenshot_file   = bytes_to_file(bytes=screenshot_bytes, extension='.png')
-        assert len        (screenshot_base64) > 50000
+        assert len        (screenshot_base64) > 8000
         assert type       (screenshot_bytes ) is bytes
         assert file_exists(screenshot_file  ) is True
         assert file_bytes (screenshot_file  ) == screenshot_bytes

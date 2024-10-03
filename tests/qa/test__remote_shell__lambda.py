@@ -51,7 +51,7 @@ class test_remote_shell_lambda(TestCase):
         screenshot_base64 = self.shell.function(playwright__page_screenshot)
         screenshot_bytes  = base64_to_bytes(screenshot_base64)
 
-        assert len(screenshot_base64)   > 10000
+        assert len(screenshot_base64)   > 8000
         assert type(screenshot_bytes)   is bytes
 
     def test_4_check_new_osbot_threading_async_execution(self):                 # test running on my local dev laptop

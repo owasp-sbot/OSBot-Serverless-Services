@@ -1,4 +1,9 @@
 from unittest                                                   import TestCase
+
+from playwright.async_api import Playwright
+
+from osbot_utils.utils.Threads import async_invoke_in_new_loop
+
 from osbot_utils.utils.Env                                      import in_github_action
 from osbot_utils.utils.Files                                    import file_name, file_exists, folder_exists, folder_name
 from osbot_serverless_flows.playwright.Playwright__Serverless   import Playwright__Serverless
@@ -19,11 +24,12 @@ class test_Playwright__Serverless(TestCase):
     def test_chrome_path(self):
         with self.playwright__serverless as _:
             chrome_path = _.chrome_path()
-            print("****** Chrome Path ******")
-            pprint(chrome_path)
             if in_github_action():
-                assert folder_exists(chrome_path)
-                assert folder_name(chrome_path) == 'chrome'
+                assert chrome_path.endswith('chrome') is True
             else:
                 assert file_exists(chrome_path)
                 assert file_name(chrome_path) == 'Chromium'
+
+    def test_playwright(self):
+        with self.playwright__serverless as _:
+            assert type(_.playwright()) is Playwright

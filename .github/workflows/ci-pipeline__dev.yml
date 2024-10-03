@@ -18,14 +18,14 @@ env:
 
 jobs:
 
-#  run-unit-and-integration-tests:
-#    if: False
-#    name: "Run Unit & Integration Tests"
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v4
-#      - name: Run Tests and Integration Tests
-#        uses: ./.github/actions/pytest__run-unit-and-integration
+  run-unit-and-integration-tests:
+    #if: False
+    name: "Run Unit & Integration Tests"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Tests and Integration Tests
+        uses: ./.github/actions/pytest__run-unit-and-integration
 
   increment-tag:
     #if: False
@@ -37,8 +37,8 @@ jobs:
         uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/git__increment-tag@dev
         with:
           release_type: ${{ env.RELEASE_TYPE }}
-#    needs:
-#      - run-unit-and-integration-tests
+    needs:
+      - run-unit-and-integration-tests
 
   publish-to-pypi:
     name: "Publish to: PYPI"
@@ -101,12 +101,12 @@ jobs:
     needs:
       - publish-to-aws-ecr
 
-#  run-qa-tests:
-#    name: "Run QA Tests"
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v4
-#      - name: Run Tests and Integration Tests
-#        uses: ./.github/actions/pytest__run-qa
-#    needs:
-#      - deploy-lambda-function
+  run-qa-tests:
+    name: "Run QA Tests"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Tests and Integration Tests
+        uses: ./.github/actions/pytest__run-qa
+    needs:
+      - deploy-lambda-function

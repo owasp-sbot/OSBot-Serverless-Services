@@ -21,6 +21,19 @@ class test_Playwright__Serverless(TestCase):
             expected_locals = dict(playwright_cli=_.playwright_cli)
             assert self.playwright__serverless.__locals__() == expected_locals
 
+    def test_1__browser__install(self):                                         # (first test to be executed) make sure that the browser is installed
+        with self.playwright__serverless as _:
+            assert _.browser__install() is True
+
+    def test_browser(self):
+        with self.playwright__serverless as _:
+            browser = async_invoke_in_new_loop(_.browser())
+            assert type(browser) is Browser
+
+    def test_browser__exists(self):
+        with self.playwright__serverless as _:
+            assert _.browser__exists() is True
+
     def test_chrome_path(self):
         with self.playwright__serverless as _:
             chrome_path = _.chrome_path()
@@ -30,15 +43,14 @@ class test_Playwright__Serverless(TestCase):
                 assert file_exists(chrome_path)
                 assert file_name(chrome_path) == 'Chromium'
 
-    def test_browser(self):
-        with self.playwright__serverless as _:
-            browser = async_invoke_in_new_loop(_.browser())
-            assert type(browser) is Browser
+
 
     def test_playwright(self):
         with self.playwright__serverless as _:
             playwright = async_invoke_in_new_loop(_.playwright())
             assert type(playwright) is Playwright
+
+    # ----------
 
     def test_run_playwright_in_pytest(self):
         from osbot_utils.utils.Threads                       import async_invoke_in_new_loop

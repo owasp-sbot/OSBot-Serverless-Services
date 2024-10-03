@@ -1,6 +1,6 @@
 from unittest                                                   import TestCase
 
-from playwright.async_api import Playwright
+from playwright.async_api import Playwright, Browser
 
 from osbot_utils.utils.Threads import async_invoke_in_new_loop
 
@@ -30,6 +30,39 @@ class test_Playwright__Serverless(TestCase):
                 assert file_exists(chrome_path)
                 assert file_name(chrome_path) == 'Chromium'
 
+    def test_browser(self):
+        with self.playwright__serverless as _:
+            browser = async_invoke_in_new_loop(_.browser())
+            assert type(browser) is Browser
+
     def test_playwright(self):
         with self.playwright__serverless as _:
-            assert type(_.playwright()) is Playwright
+            playwright = async_invoke_in_new_loop(_.playwright())
+            assert type(playwright) is Playwright
+
+    def test_run_playwright_in_pytest(self):
+        from osbot_utils.utils.Threads                       import async_invoke_in_new_loop
+        from osbot_utils.utils.Misc                          import bytes_to_base64
+        from playwright.async_api                            import async_playwright
+        from osbot_playwright.playwright.api.Playwright_CLI import Playwright_CLI
+        playwright_cli = Playwright_CLI()
+        chrome_path    = playwright_cli.executable_path__chrome()
+        pprint(chrome_path)
+
+        async def get_screenshot(url):
+
+            context = await async_playwright().start()
+            launch_kwargs = dict(args=["--disable-gpu", "--single-process"],
+                                 executable_path=chrome_path)
+            browser = await context.chromium.launch(**launch_kwargs)
+            return browser
+
+            page = await browser.new_page()
+            await page.goto(url)
+
+            screenshot = await page.screenshot(full_page=True)
+            return bytes_to_base64(screenshot)
+
+        result = async_invoke_in_new_loop(get_screenshot("https://www.google.com/404"))
+        pprint(result)
+

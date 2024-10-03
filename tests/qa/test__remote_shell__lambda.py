@@ -1,14 +1,10 @@
 from unittest                                                       import TestCase
 
-from osbot_utils.utils.Dev import pprint
-
-from osbot_utils.utils.Files import file_from_bytes
-
-from osbot_utils.utils.Env import get_env
-
+from osbot_utils.utils.Files                                        import file_from_bytes
+from osbot_utils.utils.Env                                          import get_env
 from osbot_utils.utils.Misc                                         import base64_to_bytes
 from osbot_serverless_flows.utils._for_osbot_aws.Http__Remote_Shell import Http__Remote_Shell
-from qa.test__live_lambda_server import ENDPOINT_URL__QA_LAMBDA
+from tests.qa.test__live_lambda_server                              import ENDPOINT_URL__QA_LAMBDA
 
 
 class test_remote_shell_lambda(TestCase):

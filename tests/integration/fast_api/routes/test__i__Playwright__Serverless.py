@@ -17,7 +17,7 @@ class test__i__Playwright__Serverless(TestCase):
         assert response.status_code == 200
         assert response.json()      == {"status": True}
 
-    def test__route__url_html(self):
+    def test__route__2_url_html(self):
         target_url   = 'https://httpbin.org/get?answer=42'
         get_url      = f'/browser/url-html?url={target_url}'
         response     = self.client.get(get_url)

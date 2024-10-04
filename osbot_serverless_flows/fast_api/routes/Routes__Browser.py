@@ -1,6 +1,8 @@
 from osbot_fast_api.api.Fast_API_Routes import Fast_API_Routes
 
 from osbot_serverless_flows.flows.browser_based.Flow__Playwright__Get_Page_Html import Flow__Playwright__Get_Page_Html
+from osbot_serverless_flows.flows.browser_based.Flow__Playwright__Get_Page_Screenshot import \
+    Flow__Playwright__Get_Page_Screenshot
 from osbot_serverless_flows.playwright.Playwright__Serverless                   import Playwright__Serverless
 
 ROUTES__EXPECTED_PATHS__BROWSER = ['/browser/install-browser' ,
@@ -69,8 +71,16 @@ class Routes__Browser(Fast_API_Routes):
             result = _.run()
             return result
 
+    def url_screenshot(self, url="https://httpbin.org/get"):
+        with Flow__Playwright__Get_Page_Screenshot() as _:
+            _.url = url
+            screenshot_base64 = _.run().get('screenshot_base64')
+            result = {'screenshot_base64': screenshot_base64}
+            return result
+
     def setup_routes(self):
         self.add_route_get(self.url_html        )
+        self.add_route_get(self.url_screenshot  )
         self.add_route_get(self.install_browser )
 
         # self.add_route_get(self.launch_browser)

@@ -2,24 +2,27 @@ from osbot_playwright.playwright.api.Playwright_CLI import Playwright_CLI
 from osbot_utils.utils.Dev import pprint
 
 from osbot_utils.utils.Threads import async_invoke_in_new_loop
-from playwright.async_api import async_playwright, Playwright, Browser
+from playwright.async_api import async_playwright, Playwright, Browser, Page, Response
 
 from osbot_utils.decorators.methods.cache_on_self   import cache_on_self
 from osbot_utils.base_classes.Type_Safe             import Type_Safe
 
 class Playwright__Serverless(Type_Safe):
     browser        : Browser             = None
+    page           : Page                = None
     playwright     : Playwright          = None
     playwright_cli : Playwright_CLI
-
+    response       : Response            = None
+    screenshot     : bytes               = None
 
     async def new_page(self):
-        browser = await self.launch()
-        return await browser.new_page()
+        browser   = await self.launch()
+        self.page = await browser.new_page()
+        return self.page
 
-    async def goto(self, url):
-        page = await self.new_page()
-        return await page.goto(url)
+    async def goto(self, url) -> Response:
+        self.response = await self.page.goto(url)
+        return self.response
 
     async def launch(self):
         if self.browser is None:
@@ -32,16 +35,13 @@ class Playwright__Serverless(Type_Safe):
             self.playwright = await async_playwright().start()
         return self.playwright
 
+    async def stop(self):
+        if self.playwright:
+            await self.playwright.stop()
 
-    # context = await async_playwright().start()
-
-    #             browser = await context.chromium.launch(**launch_kwargs)
-    #             page    = await browser.new_page()
-    #             await page.goto                 (url)
-    #
-    #             screenshot = await page.screenshot(full_page=True)
-    #             return bytes_to_base64(screenshot)
-
+    async def screenshot_bytes(self, full_page=False, path=None, **kwargs):
+        self.screenshot = await self.page.screenshot(full_page=full_page, path=path, **kwargs)
+        return self.screenshot
 
     # sync methods
 

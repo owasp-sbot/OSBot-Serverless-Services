@@ -1,6 +1,6 @@
 [tool.poetry]
 name        = "osbot_serverless_flows"
-version     = "v0.7.25"
+version     = "v0.7.26"
 description = "OSBot Serverless Flows"
 authors     = ["Dinis Cruz <dinis.cruz@owasp.org>"]
 license     = "MIT"

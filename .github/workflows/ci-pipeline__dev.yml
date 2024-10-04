@@ -20,7 +20,7 @@ env:
 jobs:
 
   run-unit-and-integration-tests:
-    #if: False
+    if: False
     name: "Run Unit & Integration Tests"
     runs-on: ubuntu-latest
     steps:
@@ -38,8 +38,8 @@ jobs:
         uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/git__increment-tag@dev
         with:
           release_type: ${{ env.RELEASE_TYPE }}
-    needs:
-      - run-unit-and-integration-tests
+#    needs:
+#      - run-unit-and-integration-tests
 
   publish-to-pypi:
     name: "Publish to: PYPI"

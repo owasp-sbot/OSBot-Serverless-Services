@@ -33,6 +33,8 @@ class Flow__Playwright__Get_Page_Screenshot(Type_Safe):             # refactor w
     async def open_url(self) -> Browser:
         print(f"opening url: {self.url}")
         await self.playwright_serverless.goto(self.url)
+        import asyncio
+        await asyncio.sleep(1)
 
     @task()
     async def capture_screenshot(self, flow_data: dict) -> Browser:

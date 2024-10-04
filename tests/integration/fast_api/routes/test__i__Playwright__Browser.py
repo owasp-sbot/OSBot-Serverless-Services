@@ -1,11 +1,8 @@
 from unittest import TestCase
-
-from osbot_utils.utils.Dev import pprint
-
-from integration.fast_api_objs_for_tests import client__serverless_flows
+from tests.integration.fast_api_objs_for_tests import client__serverless_flows
 
 
-class test__i__Playwright__Serverless(TestCase):
+class test__i__Playwright__Browser(TestCase):
 
     @classmethod
     def setUpClass(cls):

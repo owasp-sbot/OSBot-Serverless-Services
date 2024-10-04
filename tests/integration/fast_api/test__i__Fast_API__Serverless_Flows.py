@@ -3,7 +3,7 @@ from unittest import TestCase
 from osbot_serverless_flows.fast_api.routes.Routes__Browser import ROUTES__EXPECTED_PATHS__BROWSER
 from osbot_serverless_flows.utils.Version import version__osbot_serverless_flows
 
-from integration.fast_api_objs_for_tests import fast_api__serverless_flows, client__serverless_flows
+from tests.integration.fast_api_objs_for_tests import fast_api__serverless_flows, client__serverless_flows
 
 ROUTES__EXPECTED_PATHS = sorted(['/',
                                  '/config/status',

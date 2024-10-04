@@ -1,6 +1,6 @@
 from unittest                                                                   import TestCase
 
-from integration.fast_api_objs_for_tests import ensure_browser_is_installed
+from tests.integration.fast_api_objs_for_tests import ensure_browser_is_installed
 from osbot_serverless_flows.flows.browser_based.Flow__Playwright__Get_Page_Html import Flow__Playwright__Get_Page_Html
 
 

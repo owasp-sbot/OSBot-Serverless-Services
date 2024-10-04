@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from integration.fast_api_objs_for_tests import ensure_browser_is_installed
+from tests.integration.fast_api_objs_for_tests import ensure_browser_is_installed
 from osbot_serverless_flows.fast_api.routes.Routes__Browser import Routes__Browser
 
 

@@ -7,7 +7,7 @@ from osbot_utils.utils.Objects import obj_info
 from osbot_utils.utils.Misc                                     import list_set
 from playwright.async_api import Playwright, Browser, Response, Request, Frame, Page, Accessibility
 from osbot_utils.utils.Threads                                  import async_invoke_in_new_loop
-from osbot_utils.utils.Env                                      import in_github_action
+from osbot_utils.utils.Env import in_github_action, not_in_github_action
 from osbot_utils.utils.Files                                    import file_name, file_exists, folder_exists, folder_name
 from osbot_serverless_flows.playwright.Playwright__Serverless   import Playwright__Serverless
 from osbot_utils.utils.Dev                                      import pprint
@@ -21,7 +21,9 @@ class test_Playwright__Serverless(TestCase):
 
     def test__init__(self):
         with self.playwright__serverless as _:
-            expected_locals = dict(playwright_cli=_.playwright_cli)
+            expected_locals = dict(playwright     = None             ,
+                                   playwright_cli = _.playwright_cli )
+
             assert self.playwright__serverless.__locals__() == expected_locals
 
     def test_1__browser__install(self):                                         # (first test to be executed) make sure that the browser is installed
@@ -89,7 +91,8 @@ class test_Playwright__Serverless(TestCase):
                                                'content-length', 'content-security-policy-report-only', 'content-type',
                                                'cross-origin-opener-policy', 'date', 'expires', 'p3p', 'permissions-policy',
                                                'report-to', 'server', 'x-frame-options', 'x-xss-protection']
-            assert frame.child_frames     == []
+            if not_in_github_action():
+                assert frame.child_frames == []         # there was an extra frame here when running in GH Actions (a 'callout')
             assert frame.parent_frame     is None
             assert frame.name             == ''
             assert frame.url              == url
@@ -105,10 +108,11 @@ class test_Playwright__Serverless(TestCase):
 
 
 
-    def test_playwright(self):
+    def test_start(self):
         with self.playwright__serverless as _:
-            playwright = async_invoke_in_new_loop(_.playwright())
+            playwright = async_invoke_in_new_loop(_.start())
             assert type(playwright) is Playwright
+            assert _.playwright == playwright
 
     # ----------
 
@@ -133,9 +137,8 @@ class test_Playwright__Serverless(TestCase):
 
             screenshot = await page.screenshot(full_page=True)
             await playwright.stop()
-            
+
             return bytes_to_base64(screenshot)
 
-        result = async_invoke_in_new_loop(get_screenshot("https://www.google.com/404"))
-        pprint(result)
+        async_invoke_in_new_loop(get_screenshot("https://www.google.com/404"))
 

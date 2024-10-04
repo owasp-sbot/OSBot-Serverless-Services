@@ -8,7 +8,9 @@ from osbot_utils.decorators.methods.cache_on_self   import cache_on_self
 from osbot_utils.base_classes.Type_Safe             import Type_Safe
 
 class Playwright__Serverless(Type_Safe):
+    playwright     : Playwright          = None
     playwright_cli : Playwright_CLI
+
 
 
     @cache_on_self
@@ -16,7 +18,7 @@ class Playwright__Serverless(Type_Safe):
         return self.playwright_cli.executable_path__chrome()
 
     async def browser(self):
-        playwright = await self.playwright()
+        playwright = await self.start()
         return await playwright.chromium.launch(**self.browser__launch_kwargs())
 
     async def new_page(self):
@@ -27,8 +29,9 @@ class Playwright__Serverless(Type_Safe):
         page = await self.new_page()
         return await page.goto(url)
 
-    async def playwright(self) -> Playwright:
-        return await async_playwright().start()
+    async def start(self) -> Playwright:
+        self.playwright = await async_playwright().start()
+        return self.playwright
 
 
 

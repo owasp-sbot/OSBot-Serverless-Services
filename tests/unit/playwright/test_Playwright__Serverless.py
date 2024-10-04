@@ -1,4 +1,6 @@
 from unittest                                                   import TestCase
+
+import pytest
 from playwright.async_api._generated                            import Clock, BrowserContext, Keyboard, Mouse, Touchscreen, APIRequestContext
 from osbot_utils.utils.Misc                                     import list_set
 from playwright.async_api                                       import Playwright, Browser, Response, Request, Frame, Page, Accessibility
@@ -48,6 +50,7 @@ class test_Playwright__Serverless(TestCase):
             else:
                 assert file_name(chrome_path) == 'Chromium'
 
+    @pytest.mark.skip("See if this has an impact on the GH Actions event loop warnings")
     def test_goto(self):
         async def get_response(url):
             with self.playwright__serverless as _:

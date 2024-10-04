@@ -7,3 +7,9 @@ with capture_duration() as duration:
     client__serverless_flows = fast_api__serverless_flows.client()
 
 assert duration.seconds < 1         # make sure the setup time is less than 1 second
+
+
+def ensure_browser_is_installed():
+    from osbot_serverless_flows.playwright.Playwright__Serverless import Playwright__Serverless
+    playwright_browser = Playwright__Serverless()
+    playwright_browser.browser__install()

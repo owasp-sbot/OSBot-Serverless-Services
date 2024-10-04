@@ -14,11 +14,6 @@ class test__q__Playwright__Serverless(TestCase):
         cls.endpoint_url = get_env('ENDPOINT_URL__QA_LAMBDA', ENDPOINT_URL__QA_LAMBDA)             # todo: refactor to something like TestCase__QA_Tests
 
 
-    def test__ping(self):
-        response = requests.get(f"{self.endpoint_url}/browser/ping")
-        assert response.status_code == 200
-        assert response.text        == '"pong"'
-
     def test__url_html(self):
         target_url = 'https://httpbin.org/get?answer=42'
         get_url    = f'{self.endpoint_url}/browser/url-html?url={target_url}'

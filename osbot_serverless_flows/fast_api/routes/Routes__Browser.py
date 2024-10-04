@@ -1,7 +1,10 @@
 from osbot_fast_api.api.Fast_API_Routes import Fast_API_Routes
 
 from osbot_serverless_flows.flows.browser_based.Flow__Playwright__Get_Page_Html import Flow__Playwright__Get_Page_Html
+from osbot_serverless_flows.playwright.Playwright__Serverless                   import Playwright__Serverless
 
+ROUTES__EXPECTED_PATHS__BROWSER = ['/browser/install-browser' ,
+                                   '/browser/url-html'        ]
 
 class Routes__Browser(Fast_API_Routes):
     tag : str = 'browser'
@@ -55,6 +58,10 @@ class Routes__Browser(Fast_API_Routes):
     #     except Exception as error:
     #         return f'{error}'
 
+    def install_browser(self):
+        playwright_browser = Playwright__Serverless()
+        result             = playwright_browser.browser__install()
+        return dict(status=result)
 
     def url_html(self, url="https://httpbin.org/get"):
         with Flow__Playwright__Get_Page_Html() as _:
@@ -62,12 +69,9 @@ class Routes__Browser(Fast_API_Routes):
             result = _.run()
             return result
 
-    def ping(self):
-        return 'pong'
-
     def setup_routes(self):
-        self.add_route_get(self.url_html)
-        self.add_route_get(self.ping    )
+        self.add_route_get(self.url_html        )
+        self.add_route_get(self.install_browser )
 
         # self.add_route_get(self.launch_browser)
         # self.add_route_get(self.new_page      )

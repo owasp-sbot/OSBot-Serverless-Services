@@ -2,37 +2,35 @@ from osbot_playwright.playwright.api.Playwright_CLI import Playwright_CLI
 from osbot_utils.utils.Dev import pprint
 
 from osbot_utils.utils.Threads import async_invoke_in_new_loop
-from playwright.async_api import async_playwright, Playwright
+from playwright.async_api import async_playwright, Playwright, Browser
 
 from osbot_utils.decorators.methods.cache_on_self   import cache_on_self
 from osbot_utils.base_classes.Type_Safe             import Type_Safe
 
 class Playwright__Serverless(Type_Safe):
+    browser        : Browser             = None
     playwright     : Playwright          = None
     playwright_cli : Playwright_CLI
 
 
-
-    @cache_on_self
-    def chrome_path(self):
-        return self.playwright_cli.executable_path__chrome()
-
-    async def browser(self):
-        playwright = await self.start()
-        return await playwright.chromium.launch(**self.browser__launch_kwargs())
-
     async def new_page(self):
-        browser = await self.browser()
+        browser = await self.launch()
         return await browser.new_page()
 
     async def goto(self, url):
         page = await self.new_page()
         return await page.goto(url)
 
-    async def start(self) -> Playwright:
-        self.playwright = await async_playwright().start()
-        return self.playwright
+    async def launch(self):
+        if self.browser is None:
+            playwright   = await self.start()
+            self.browser = await playwright.chromium.launch(**self.browser__launch_kwargs())
+        return self.browser
 
+    async def start(self) -> Playwright:
+        if self.playwright is None:
+            self.playwright = await async_playwright().start()
+        return self.playwright
 
 
     # context = await async_playwright().start()
@@ -58,3 +56,7 @@ class Playwright__Serverless(Type_Safe):
     def browser__launch_kwargs(self):
         return dict(args=["--disable-gpu", "--single-process"],
                     executable_path=self.chrome_path())
+
+    @cache_on_self
+    def chrome_path(self):
+        return self.playwright_cli.executable_path__chrome()

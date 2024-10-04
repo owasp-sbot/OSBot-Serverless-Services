@@ -21,7 +21,8 @@ class test_Playwright__Serverless(TestCase):
 
     def test__init__(self):
         with self.playwright__serverless as _:
-            expected_locals = dict(playwright     = None             ,
+            expected_locals = dict(browser        = None             ,
+                                   playwright     = None             ,
                                    playwright_cli = _.playwright_cli )
 
             assert self.playwright__serverless.__locals__() == expected_locals
@@ -30,9 +31,9 @@ class test_Playwright__Serverless(TestCase):
         with self.playwright__serverless as _:
             assert _.browser__install() is True
 
-    def test_browser(self):
+    def test_launch(self):
         with self.playwright__serverless as _:
-            browser = async_invoke_in_new_loop(_.browser())
+            browser = async_invoke_in_new_loop(_.launch())
             assert type(browser) is Browser
 
     def test_browser__exists(self):
@@ -93,12 +94,12 @@ class test_Playwright__Serverless(TestCase):
                                                'report-to', 'server', 'x-frame-options', 'x-xss-protection']
             if not_in_github_action():
                 assert frame.child_frames == []         # there was an extra frame here when running in GH Actions (a 'callout')
+                assert frames             == [frame]
             assert frame.parent_frame     is None
             assert frame.name             == ''
             assert frame.url              == url
             assert ok                     is True
             assert status                 == 200
-            assert frames                 == [frame]
             assert main_frame             == frame
             assert page.url               == url
             assert page.video             is None
@@ -123,7 +124,6 @@ class test_Playwright__Serverless(TestCase):
         from osbot_playwright.playwright.api.Playwright_CLI import Playwright_CLI
         playwright_cli = Playwright_CLI()
         chrome_path    = playwright_cli.executable_path__chrome()
-        pprint(chrome_path)
 
         async def get_screenshot(url):
 

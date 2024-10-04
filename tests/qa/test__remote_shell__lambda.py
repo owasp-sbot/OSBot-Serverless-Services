@@ -113,17 +113,20 @@ class test_remote_shell_lambda(TestCase):
             flow__get_page_html = Flow__Playwright__Get_Page_Html()
             flow_data           = flow__get_page_html.run()
             flow                = flow__get_page_html.flow()
-            #flow.execute_flow()
+
+            flow.execute_flow()
             #
             #result = flow.flow_target
 
-            flow_target = flow.flow_target
-            flow_args = flow.flow_args
-            flow_kwargs = flow.flow_kwargs
-            async_coroutine = flow_target(*flow_args, **flow_kwargs)
-            #result = async_oroutine
-            from osbot_utils.utils.Threads import invoke_in_new_event_loop
-            result = invoke_in_new_event_loop(async_coroutine)
+            # flow_target = flow.flow_target
+            # flow_args = flow.flow_args
+            # flow_kwargs = flow.flow_kwargs
+            # async_coroutine = flow_target(*flow_args, **flow_kwargs)
+            # #result = async_oroutine
+            # from osbot_utils.utils.Threads import invoke_in_new_event_loop
+            # result = invoke_in_new_event_loop(async_coroutine)
+            result = flow.captured_exec_logs
+
             return f'{result}'
 
         self.shell.function__print(invoke_flow_from_pytest)

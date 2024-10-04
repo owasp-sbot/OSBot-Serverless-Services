@@ -132,7 +132,7 @@ class test_Playwright__Serverless(TestCase):
                 await _.start()
                 await _.stop()
         invoke_async(start_and_stop())
-        
+
     # ----------
 
     # def test_run_playwright_in_pytest(self):

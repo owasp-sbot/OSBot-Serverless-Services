@@ -38,7 +38,7 @@ class Flow__Playwright__Get_Page_Screenshot(Type_Safe):             # refactor w
 
     @task()
     async def capture_screenshot(self, flow_data: dict) -> Browser:
-        screenshot_bytes = await self.playwright_serverless.page.screenshot()
+        screenshot_bytes = await self.playwright_serverless.page.screenshot(full_page=True)
         flow_data['screenshot_bytes'] = screenshot_bytes
         print(f"got screenshot_bytes with size: {len(screenshot_bytes)}")
 

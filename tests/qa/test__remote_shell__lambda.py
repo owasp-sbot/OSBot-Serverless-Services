@@ -11,7 +11,7 @@ class test_remote_shell_lambda(TestCase):
 
     def setUp(self):
         self.port  = 5002
-        target_server = get_env('ENDPOINT_URL__QA_LAMBDA__', ENDPOINT_URL__QA_LAMBDA)
+        target_server = get_env('ENDPOINT_URL__QA_LAMBDA', ENDPOINT_URL__QA_LAMBDA)
         target_url = f'{target_server}/debug/lambda-shell'
         self.shell = Http__Remote_Shell(target_url=target_url)
 
@@ -107,35 +107,35 @@ class test_remote_shell_lambda(TestCase):
     #
     #     result = async_invoke_in_new_loop(get_screenshot("https://www.google.com/404"))
 
-    def test_invoke_flow_from_pytest(self):
-        def invoke_flow_from_pytest():
-            from osbot_serverless_flows.flows.browser_based.Flow__Playwright__Get_Page_Html import Flow__Playwright__Get_Page_Html
-            flow__get_page_html = Flow__Playwright__Get_Page_Html()
-            flow_data           = flow__get_page_html.run()
-            flow                = flow__get_page_html.flow()
-
-            flow.execute_flow()
-            #
-            #result = flow.flow_target
-
-            # flow_target = flow.flow_target
-            # flow_args = flow.flow_args
-            # flow_kwargs = flow.flow_kwargs
-            # async_coroutine = flow_target(*flow_args, **flow_kwargs)
-            # #result = async_oroutine
-            # from osbot_utils.utils.Threads import invoke_in_new_event_loop
-            # result = invoke_in_new_event_loop(async_coroutine)
-            result = flow.captured_exec_logs
-
-            return f'{result}'
-
-        self.shell.function__print(invoke_flow_from_pytest)
-
-    def test_x_print_misc_query(self):
-        def misc_query():
-            from osbot_playwright.playwright.api.Playwright_CLI import Playwright_CLI
-            playwright_cli = Playwright_CLI()
-            return playwright_cli.executable_path__chrome()
-
-        self.shell.function__print(misc_query)
+    # def test_invoke_flow_from_pytest(self):
+    #     def invoke_flow_from_pytest():
+    #         from osbot_serverless_flows.flows.browser_based.Flow__Playwright__Get_Page_Html import Flow__Playwright__Get_Page_Html
+    #         flow__get_page_html = Flow__Playwright__Get_Page_Html()
+    #         flow_data           = flow__get_page_html.run()
+    #         flow                = flow__get_page_html.flow()
+    #
+    #         flow.execute_flow()
+    #         #
+    #         #result = flow.flow_target
+    #
+    #         # flow_target = flow.flow_target
+    #         # flow_args = flow.flow_args
+    #         # flow_kwargs = flow.flow_kwargs
+    #         # async_coroutine = flow_target(*flow_args, **flow_kwargs)
+    #         # #result = async_oroutine
+    #         # from osbot_utils.utils.Threads import invoke_in_new_event_loop
+    #         # result = invoke_in_new_event_loop(async_coroutine)
+    #         result = flow.captured_exec_logs
+    #
+    #         return f'{result}'
+    #
+    #     self.shell.function__print(invoke_flow_from_pytest)
+    #
+    # def test_x_print_misc_query(self):
+    #     def misc_query():
+    #         from osbot_playwright.playwright.api.Playwright_CLI import Playwright_CLI
+    #         playwright_cli = Playwright_CLI()
+    #         return playwright_cli.executable_path__chrome()
+    #
+    #     self.shell.function__print(misc_query)
 

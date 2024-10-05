@@ -14,7 +14,7 @@ ENV PORT=8080
 
 WORKDIR /app
 
-RUN pip install osbot-utils==v1.47.0
+RUN pip install --upgrade osbot-utils
 
 COPY ../../../osbot_serverless_flows /app/osbot_serverless_flows
 

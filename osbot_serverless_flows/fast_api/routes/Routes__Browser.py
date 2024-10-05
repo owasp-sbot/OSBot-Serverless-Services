@@ -1,4 +1,8 @@
+import io
+
 from osbot_fast_api.api.Fast_API_Routes import Fast_API_Routes
+from starlette.responses import StreamingResponse
+
 from osbot_utils.decorators.methods.cache_on_self import cache_on_self
 
 from osbot_serverless_flows.flows.browser_based.Flow__Playwright__Get_Page_Html import Flow__Playwright__Get_Page_Html
@@ -28,21 +32,40 @@ class Routes__Browser(Fast_API_Routes):
             result = _.run()
             return result
 
-    def url_pdf(self, url="https://httpbin.org/get"):
-        self.install_browser()                                  # todo:  BUG: for now, put the check there to make sure the browser is installed
+    def url_pdf(self, url="https://httpbin.org/get", return_file:bool=False):           # todo: refactor with url_screenshot
+        self.install_browser()                                                          # todo:  BUG: for now, put the check there to make sure the browser is installed
         with Flow__Playwright__Get_Page_Pdf() as _:
             _.url = url
-            screenshot_base64 = _.run().get('pdf_base64')
-            result = {'pdf_base64': screenshot_base64}
-            return result
+            run_data   =_.run()
+            pdf_bytes  = run_data.get('pdf_bytes' )
+            pdf_base64 = run_data.get('pdf_base64')
 
-    def url_screenshot(self, url="https://httpbin.org/get"):
-        self.install_browser()                                  # todo:  BUG: for now, put the check there to make sure the browser is installed
+            if return_file is True:
+                pdf_stream = io.BytesIO(pdf_bytes)
+                response = StreamingResponse( pdf_stream,
+                                              media_type = "application/pdf",
+                                              headers    = {"Content-Disposition": "attachment; filename=document.pdf"})
+            else:
+                response = {'pdf_base64': pdf_base64}
+
+            return response
+
+    def url_screenshot(self, url="https://httpbin.org/get", return_file:bool=False):
+        self.install_browser()                                                           # todo:  BUG: for now, put the check there to make sure the browser is installed
         with Flow__Playwright__Get_Page_Screenshot() as _:
             _.url = url
-            screenshot_base64 = _.run().get('screenshot_base64')
-            result = {'screenshot_base64': screenshot_base64}
-            return result
+            run_data = _.run()
+            screenshot_base64 = run_data.get('screenshot_base64')
+            screenshot_bytes  = run_data.get('screenshot_bytes')
+            if return_file:
+                screenshot_stream = io.BytesIO(screenshot_bytes)
+                response = StreamingResponse(screenshot_stream,
+                                             media_type = "image/png",
+                                             headers    = {"Content-Disposition": "attachment; filename=screenshot.png"})
+            else:
+                response = {'screenshot_base64': screenshot_base64}
+
+            return response
 
     def setup_routes(self):
         self.add_route_get(self.url_html        )

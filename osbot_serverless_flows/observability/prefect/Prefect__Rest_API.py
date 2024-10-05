@@ -9,6 +9,7 @@ ENV_NAME__PREFECT_CLOUD__WORKSPACE_ID = 'PREFECT_CLOUD__WORKSPACE_ID'
 
 class Prefect__Rest_API(Type_Safe):
 
+    # raw request methods
     def api_key(self):
         return get_env(ENV_NAME__PREFECT_CLOUD__API_KEY)
 
@@ -22,8 +23,15 @@ class Prefect__Rest_API(Type_Safe):
         return f"https://api.prefect.cloud/api/accounts/{self.account_id()}/workspaces/{self.workspace_id()}"
 
     def requests_post(self, path, data):
-
         headers  = {"Authorization": f"Bearer {self.api_key()}"}
         endpoint = f"{self.prefect_api_url()}{path}"
         response = requests.post(endpoint, headers=headers, json=data)
         return response
+
+    # request helpers
+
+    def filter(self, target, limit=5):
+        path = f'/{target}/filter'
+        data = { "sort" : "CREATED_DESC",
+                 "limit": limit         }
+        return self.requests_post(path, data)

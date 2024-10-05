@@ -18,10 +18,3 @@ class test_Prefect__Rest_API(TestCase):
         workspace_id = self.prefect_rest_api.workspace_id()
         expected_url = f"https://api.prefect.cloud/api/accounts/{account_id}/workspaces/{workspace_id}"
         assert self.prefect_rest_api.prefect_api_url() == expected_url
-
-    # def test_make_request(self):
-    #     response = self.prefect_rest_api.make_request()
-    #     assert response.status_code == 200
-    #     pprint(response.json())
-    #     for artifact in response.json():
-    #         print(artifact)

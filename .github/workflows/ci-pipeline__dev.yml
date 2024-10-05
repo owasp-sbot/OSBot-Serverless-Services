@@ -17,6 +17,10 @@ env:
   DOCKER_HUB__USERNAME   : "diniscruz"
   LAMBDA_SHELL__AUTH_KEY : ${{ secrets.LAMBDA_SHELL__AUTH_KEY }}
 
+  PREFECT_CLOUD__API_KEY     : ${{ secrets.PREFECT_CLOUD__API_KEY      }}
+  PREFECT_CLOUD__ACCOUNT_ID  : ${{ secrets.PREFECT_CLOUD__ACCOUNT_ID   }}
+  PREFECT_CLOUD__WORKSPACE_ID: ${{ secrets.PREFECT_CLOUD__WORKSPACE_ID }}
+
 jobs:
 
   run-unit-and-integration-tests:
@@ -38,8 +42,8 @@ jobs:
         uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/git__increment-tag@dev
         with:
           release_type: ${{ env.RELEASE_TYPE }}
-#    needs:
-#      - run-unit-and-integration-tests
+    needs:
+      - run-unit-and-integration-tests
 
   publish-to-pypi:
     name: "Publish to: PYPI"

@@ -1,4 +1,5 @@
 from osbot_fast_api.api.Fast_API_Routes import Fast_API_Routes
+from osbot_utils.decorators.methods.cache_on_self import cache_on_self
 
 from osbot_serverless_flows.flows.browser_based.Flow__Playwright__Get_Page_Html import Flow__Playwright__Get_Page_Html
 from osbot_serverless_flows.flows.browser_based.Flow__Playwright__Get_Page_Pdf import Flow__Playwright__Get_Page_Pdf
@@ -14,54 +15,6 @@ ROUTES__EXPECTED_PATHS__BROWSER = ['/browser/install-browser' ,
 class Routes__Browser(Fast_API_Routes):
     tag : str = 'browser'
 
-    # def launch_browser(self):
-    #     with sync_playwright() as p:
-    #         browser = p.chromium.launch(args=["--disable-gpu", "--single-process"])
-    #         return f'browser launched: {browser}'
-    #
-    # def new_page(self):
-    #     with sync_playwright() as p:
-    #         browser = p.chromium.launch(args=["--disable-gpu", "--single-process"])
-    #         page   = browser.new_page()
-    #         return f'new page: {page}'
-    #
-    # def html(self, url='https://dev.cyber-boardroom.com/config/version'):
-    #     try:
-    #         with sync_playwright() as p:
-    #             #browser = p.chromium.launch(args=["--disable-gpu", "--single-process"])
-    #             browser = p.chromium.launch(args=["--disable-gpu", "--single-process"])
-    #             page    = browser.new_page()
-    #             page.goto(url)
-    #             html_content = page.content()
-    #             return HTMLResponse(content=html_content, status_code=200)
-    #     except Exception as error:
-    #         return f'{error}'
-    #
-    # def html_2(self, url='https://dev.cyber-boardroom.com/config/version'):
-    #     try:
-    #         playwright  = sync_playwright().start()
-    #         browser     = playwright.chromium.launch(args=["--disable-gpu", "--single-process"])
-    #         page        = browser.new_page()
-    #         page.goto(url)
-    #         html_content = page.content()
-    #         #page.screenshot(path="example.png")
-    #         browser.close()
-    #         playwright.stop()
-    #         return html_content
-    #
-    #     except Exception as error:
-    #         return f'{error}'
-    #
-    # async def html_async(self, url='https://dev.cyber-boardroom.com/config/version'):
-    #     try:
-    #         async with async_playwright() as p:
-    #             browser = await p.chromium.launch(args=["--disable-gpu", "--single-process"])
-    #             page    = await browser.new_page()
-    #             await page.goto(url)
-    #             html_content = await page.content()
-    #             return HTMLResponse(content=html_content, status_code=200)
-    #     except Exception as error:
-    #         return f'{error}'
 
     def install_browser(self):
         playwright_browser = Playwright__Serverless()
@@ -69,12 +22,14 @@ class Routes__Browser(Fast_API_Routes):
         return dict(status=result)
 
     def url_html(self, url="https://httpbin.org/get"):
+        self.install_browser()                                  # todo: BUG: for now, put the check there to make sure the browser is installed
         with Flow__Playwright__Get_Page_Html() as _:
             _.url = url
             result = _.run()
             return result
 
     def url_pdf(self, url="https://httpbin.org/get"):
+        self.install_browser()                                  # todo:  BUG: for now, put the check there to make sure the browser is installed
         with Flow__Playwright__Get_Page_Pdf() as _:
             _.url = url
             screenshot_base64 = _.run().get('pdf_base64')
@@ -82,6 +37,7 @@ class Routes__Browser(Fast_API_Routes):
             return result
 
     def url_screenshot(self, url="https://httpbin.org/get"):
+        self.install_browser()                                  # todo:  BUG: for now, put the check there to make sure the browser is installed
         with Flow__Playwright__Get_Page_Screenshot() as _:
             _.url = url
             screenshot_base64 = _.run().get('screenshot_base64')

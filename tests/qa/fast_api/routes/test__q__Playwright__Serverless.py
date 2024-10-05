@@ -1,17 +1,23 @@
 from unittest                           import TestCase
 
 import requests
+from osbot_utils.utils.Dev import pprint
 
 from osbot_utils.utils.Env import load_dotenv, get_env
+from tests.qa.for_qa_tests import qa__endpoint_url
 
-from tests.qa.test__live_lambda_server  import ENDPOINT_URL__QA_LAMBDA
 
 class test__q__Playwright__Serverless(TestCase):
 
     @classmethod
     def setUpClass(cls):
         load_dotenv()
-        cls.endpoint_url = get_env('ENDPOINT_URL__QA_LAMBDA', ENDPOINT_URL__QA_LAMBDA)             # todo: refactor to something like TestCase__QA_Tests
+        cls.endpoint_url = qa__endpoint_url
+
+    def test_install_browser(self):
+        get_url                = f'{self.endpoint_url}/browser/install-browser'
+        response               = requests.get(get_url)
+        assert response.json() == {'status': True}
 
 
     def test__url_html(self):

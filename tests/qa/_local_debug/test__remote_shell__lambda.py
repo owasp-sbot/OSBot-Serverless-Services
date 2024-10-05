@@ -1,19 +1,21 @@
 from unittest                                                       import TestCase
 
-from osbot_utils.utils.Files                                        import file_from_bytes
-from osbot_utils.utils.Env                                          import get_env
+import pytest
+
+from osbot_utils.utils.Files import file_from_bytes, file_exists, folder_exists, folder_files
 from osbot_utils.utils.Misc                                         import base64_to_bytes
 from osbot_serverless_flows.utils._for_osbot_aws.Http__Remote_Shell import Http__Remote_Shell
-from tests.qa.test__live_lambda_server                              import ENDPOINT_URL__QA_LAMBDA
+from tests.qa.for_qa_tests                                          import qa__endpoint_url
 
 
+@pytest.mark.skip("only used for manual testing")
 class test_remote_shell_lambda(TestCase):
 
     def setUp(self):
         self.port  = 5002
-        target_server = get_env('ENDPOINT_URL__QA_LAMBDA', ENDPOINT_URL__QA_LAMBDA)
-        target_url = f'{target_server}/debug/lambda-shell'
-        self.shell = Http__Remote_Shell(target_url=target_url)
+        self.target_server = qa__endpoint_url
+        self.target_url = f'{self.target_server}/debug/lambda-shell'
+        self.shell = Http__Remote_Shell(target_url=self.target_url)
 
     def test_0_lambda_shell_setup(self):
         assert self.shell.ping() == 'pong'
@@ -24,17 +26,45 @@ class test_remote_shell_lambda(TestCase):
             return 'here....'
         assert self.shell.function(return_value) == 'here....'
 
-    def test_2_playwright__install_chrome(self):
-        def playwright__install_chrome():
-            from osbot_playwright.playwright.api.Playwright_CLI import Playwright_CLI
-            playwright_cli = Playwright_CLI()
-            result = playwright_cli.browser_installed__chrome()
-            if result is False:
-                result = playwright_cli.install__chrome()
-            return f'{result}'
+    # def test_2_playwright__install_chrome(self):
+    #     def playwright__install_chrome():
+    #         from osbot_playwright.playwright.api.Playwright_CLI import Playwright_CLI
+    #         playwright_cli = Playwright_CLI()
+    #         result = playwright_cli.browser_installed__chrome()
+    #         if result is False:
+    #             result = playwright_cli.install__chrome()
+    #         return f'{result}'
+    #
+    #     install_result           = self.shell.function(playwright__install_chrome)
+    #     assert install_result   == 'True'
 
-        install_result           = self.shell.function(playwright__install_chrome)
-        assert install_result   == 'True'
+    def test_2_load_browser(self):
+        def playwright__check_browser():
+            from osbot_utils.utils.Files                                  import folder_files, file_exists, folder_exists
+            from osbot_serverless_flows.playwright.Playwright__Serverless import Playwright__Serverless
+            from osbot_utils.utils.Threads                                import invoke_in_new_event_loop
+            from osbot_playwright.playwright.api.Playwright_CLI           import Playwright_CLI
+            async def run_checks():
+
+                playwright_cli = Playwright_CLI()
+                with Playwright__Serverless() as _:
+                    #await _.launch()
+                    #result = playwright_cli.invoke_raw(['install', 'chromium'])
+                    #return result
+                    return folder_files(playwright_cli.install_location('chromium'))
+                    result = dict(browser_exists           = _.browser__exists()                        ,
+                                  file_exists             = file_exists(_.chrome_path())                ,
+                                  chrome_path              = _.chrome_path()                            ,
+                                  install_location         = playwright_cli.install_location('chromium'),
+                                  folder_exists            = folder_exists(playwright_cli.install_location('chromium')),
+                                  executable_path__chrome  = playwright_cli.executable_path__chrome()   ,
+                                  browser                  =  f'{type(_.browser)}'                      )
+                    return result
+
+
+            return invoke_in_new_event_loop(run_checks())
+
+        self.shell.function__print(playwright__check_browser)
 
     def test_3_run_playwright__page_screenshot(self):
 
@@ -136,6 +166,13 @@ class test_remote_shell_lambda(TestCase):
     #         from osbot_playwright.playwright.api.Playwright_CLI import Playwright_CLI
     #         playwright_cli = Playwright_CLI()
     #         return playwright_cli.executable_path__chrome()
+    #
+    #     self.shell.function__print(misc_query)
+
+    # def test_get_environ(self):
+    #     def misc_query():
+    #         from os import environ
+    #         return dict(environ)
     #
     #     self.shell.function__print(misc_query)
 

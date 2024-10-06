@@ -16,9 +16,13 @@ class test_Prefect__Cloud_API(TestCase):
         cls.prefect_cloud_api = Prefect__Cloud_API()
 
     def test_flows(self):
-        response    = self.prefect_cloud_api.flows()
-        status_code = response.status_code
-        flows       = response.json()
-        assert status_code == 200
+        flows    = self.prefect_cloud_api.flows()
         for flow in flows:
+            assert list_set(flow) == ['created', 'id', 'labels', 'name', 'tags', 'updated']
+
+    def test_flow(self):
+        with self.prefect_cloud_api as _:
+            flows_ids = _.flows_ids()
+            flow_id   = flows_ids.pop()
+            flow      = self.prefect_cloud_api.flow(flow_id=flow_id)
             assert list_set(flow) == ['created', 'id', 'labels', 'name', 'tags', 'updated']

@@ -43,7 +43,7 @@ jobs:
           test_target: 'tests/integration/observability'
 
   run-unit-and-integration-tests:
-    if: False
+    #if: False
     name: "Run Unit & Integration Tests"
     runs-on: ubuntu-latest
     steps:

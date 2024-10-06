@@ -33,7 +33,9 @@ class Prefect__Rest_API(Type_Safe):
 
         endpoint = url_join_safe(self.prefect_api_url(), path)                          # Construct the full endpoint URL by joining the base URL with the path
 
-        if method == requests.get:                                                      # For GET requests, pass data as query parameters
+        if method == requests.delete:                                                   # For DELETE requests, pass data as query parameters
+            response = method(endpoint, headers=headers, params=data)
+        elif method == requests.get:                                                    # For GET requests, pass data as query parameters
             response = method(endpoint, headers=headers, params=data)
         elif method == requests.head:                                                   # For HEAD requests, no payload or parameters are needed
             response = method(endpoint, headers=headers)
@@ -42,13 +44,20 @@ class Prefect__Rest_API(Type_Safe):
         else:
             return status_error("Unsupported request method")                           # Return an error if the method is not supported
 
-        status_code = response.status_code                                              # Handle the response and return an appropriate result
+        status_code  = response.status_code                                              # Handle the response and return an appropriate result
+        content_type = response.headers.get('Content-Type', '')
         if 200 <= status_code < 300:
             if method == requests.head:                                                 # For HEAD requests, return the headers as the response data
                 return status_ok(data=response.headers)
-            return status_ok(data=response.json())                                      # For other successful requests, return the JSON data
+            if content_type == 'application/json':                                      # For successful JSON responses, return the JSON data
+                return status_ok(data=response.json())
+            return status_ok(data=response.text)                                      # For other successful requests, return the JSON data
 
         return status_error(message=f"{method.__name__.upper()} request to {path}, failed with status {status_code}", error=response.text) # For failed requests, return an error message with status and response text
+
+
+    def requests__delete(self, path, params=None):                                         # Wrapper for executing GET requests
+        return self.requests__for_method(requests.delete, path, data=params)
 
     def requests__get(self, path, params=None):                                         # Wrapper for executing GET requests
         return self.requests__for_method(requests.get, path, data=params)
@@ -64,6 +73,10 @@ class Prefect__Rest_API(Type_Safe):
     def create(self, target, data):
         path = f'/{target}'
         return self.requests__post(path, data)
+
+    def delete(self, target, target_id):
+        path = f'/{target}/{target_id}'
+        return self.requests__delete(path)
 
     def read(self, target, target_id):
         path = f'/{target}/{target_id}'

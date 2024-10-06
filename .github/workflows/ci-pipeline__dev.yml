@@ -32,9 +32,11 @@ jobs:
       - name: Start Prefect Server
         uses: ./.github/actions/docker__start-prefect-server
 
-      - name: Test Prefect API
-        shell: bash
-        run: curl --retry 5 --retry-delay 10 -v http://localhost:4200/api/health
+  run-prefect-tests:
+    name: "Run Prefect Tests"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
       - name: Install Dependencies
         uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__install@dev
@@ -45,7 +47,8 @@ jobs:
         uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__run-unit-tests@dev
         with:
           test_target: 'tests/integration/observability'
-
+    needs:
+      - start-prefect-server
 
   run-unit-and-integration-tests:
     if: False

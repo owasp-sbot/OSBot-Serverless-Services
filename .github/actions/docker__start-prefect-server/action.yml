@@ -9,9 +9,9 @@ runs:
       uses: docker/setup-buildx-action@v3
 
 
-#    # Install Docker Compose
-#    - name: Install Docker Compose
-#      run: sudo apt-get update && sudo apt-get install -y docker-compose
+    # Install Docker Compose
+    - name: Install Docker Compose
+      run: sudo apt-get update && sudo apt-get install -y docker-compose
 
     # Navigate to the docker-compose file location and start the services
     - name: Start Docker Compose

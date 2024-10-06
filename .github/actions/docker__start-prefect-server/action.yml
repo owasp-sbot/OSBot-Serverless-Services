@@ -11,6 +11,7 @@ runs:
 
     # Install Docker Compose
     - name: Install Docker Compose
+      shell: bash
       run: sudo apt-get update && sudo apt-get install -y docker-compose
 
     # Navigate to the docker-compose file location and start the services

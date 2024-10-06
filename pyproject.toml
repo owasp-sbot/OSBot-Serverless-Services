@@ -18,6 +18,7 @@ requests         = "*"
 httpx            = "*"
 osbot_playwright = "*"
 bs4              = "*"
+pytest = "^8.3.3"
 
 [build-system]
 requires        = ["poetry-core>=1.0.0"]

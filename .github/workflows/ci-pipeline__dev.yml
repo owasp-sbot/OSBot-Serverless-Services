@@ -32,6 +32,10 @@ jobs:
       - name: Start Prefect Server
         uses: ./.github/actions/docker__start-prefect-server
 
+      - name: Test Prefect API
+        shell: bash
+        run: curl --retry 5 --retry-delay 10 -v http://localhost:4200/api/health
+
       - name: Install Dependencies
         uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__install@dev
         with:

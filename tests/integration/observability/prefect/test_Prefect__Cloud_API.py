@@ -1,4 +1,6 @@
 from unittest                                                           import TestCase
+
+from osbot_serverless_flows.observability.prefect.Prefect__Rest_API     import ENV_NAME__PREFECT_TARGET_SERVER
 from osbot_utils.utils.Lists                                            import list_in_list
 from osbot_utils.utils.Misc                                             import list_set
 from osbot_serverless_flows.observability.prefect.Prefect__Cloud_API    import Prefect__Cloud_API
@@ -12,7 +14,7 @@ class test_Prefect__Cloud_API(TestCase):
         cls.prefect_cloud_api = Prefect__Cloud_API()
 
     def test_confirm_local_docker(self):
-        assert get_env('PREFECT_TARGET_SERVER') == 'http://localhost:4200/api'
+        assert get_env(ENV_NAME__PREFECT_TARGET_SERVER) == 'http://localhost:4200/api'
 
     def test_flows(self):
         flows    = self.prefect_cloud_api.flows()

@@ -27,6 +27,7 @@ runs:
 #        echo "Waiting for services to be up..."
 #        sleep 30
 
-#    # Test Prefect service to see if it's running
-#    - name: Test Prefect API
-#      run: curl --retry 5 --retry-delay 10 -v http://localhost:4200/api/health
+    # Test Prefect service to see if it's running
+    - name: Test Prefect API
+      shell: bash
+      run: curl --retry 5 --retry-delay 10 -v http://localhost:4200/api/health

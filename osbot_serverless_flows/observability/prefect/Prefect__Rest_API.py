@@ -43,7 +43,7 @@ class Prefect__Rest_API(Type_Safe):
             return status_error("Unsupported request method")                           # Return an error if the method is not supported
 
         status_code = response.status_code                                              # Handle the response and return an appropriate result
-        if status_code == 200:
+        if 200 <= status_code < 300:
             if method == requests.head:                                                 # For HEAD requests, return the headers as the response data
                 return status_ok(data=response.headers)
             return status_ok(data=response.json())                                      # For other successful requests, return the JSON data
@@ -60,6 +60,10 @@ class Prefect__Rest_API(Type_Safe):
         return self.requests__for_method(requests.head, path)
 
     # request helpers
+
+    def create(self, target, data):
+        path = f'/{target}'
+        return self.requests__post(path, data)
 
     def read(self, target, target_id):
         path = f'/{target}/{target_id}'

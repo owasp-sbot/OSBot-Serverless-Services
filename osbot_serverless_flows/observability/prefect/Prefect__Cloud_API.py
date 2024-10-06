@@ -7,6 +7,8 @@ from osbot_utils.base_classes.Type_Safe                             import Type_
 class Prefect__Cloud_API(Type_Safe):
     prefect_rest_api = Prefect__Rest_API()
 
+    def flow_create(self, flow_definition):
+        return self.prefect_rest_api.create(target='flows', data=flow_definition) #.get('data') or {}
 
     def flows(self, limit=5):
         return self.prefect_rest_api.filter(target='flows', limit=limit).get('data') or []

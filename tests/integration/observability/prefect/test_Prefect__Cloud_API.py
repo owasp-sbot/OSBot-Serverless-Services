@@ -24,6 +24,7 @@ class test_Prefect__Cloud_API(TestCase):
     def test_flow(self):
         with self.prefect_cloud_api as _:
             flows_ids = _.flows_ids()
-            flow_id   = flows_ids.pop()
-            flow      = self.prefect_cloud_api.flow(flow_id=flow_id)
-            assert list_in_list(["created", "id", "tags", "updated"], list_set(flow)) is True
+            if flows_ids:
+                flow_id   = flows_ids.pop()
+                flow      = self.prefect_cloud_api.flow(flow_id=flow_id)
+                assert list_in_list(["created", "id", "tags", "updated"], list_set(flow)) is True

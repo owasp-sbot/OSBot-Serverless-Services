@@ -20,6 +20,7 @@ env:
   PREFECT_CLOUD__API_KEY     : ${{ secrets.PREFECT_CLOUD__API_KEY      }}
   PREFECT_CLOUD__ACCOUNT_ID  : ${{ secrets.PREFECT_CLOUD__ACCOUNT_ID   }}
   PREFECT_CLOUD__WORKSPACE_ID: ${{ secrets.PREFECT_CLOUD__WORKSPACE_ID }}
+  PREFECT_TARGET_SERVER      : ${{ secrets.PREFECT_TARGET_SERVER       }}
 
 jobs:
   start-prefect-server:

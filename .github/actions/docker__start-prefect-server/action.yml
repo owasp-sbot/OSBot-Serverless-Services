@@ -1,0 +1,31 @@
+name: "docker__start-lambda-docker"
+description: "Start Lambda Docker"
+
+runs:
+  using: "composite"
+  steps:
+    # Set up Docker Buildx for better build performance and features
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+
+#    # Install Docker Compose
+#    - name: Install Docker Compose
+#      run: sudo apt-get update && sudo apt-get install -y docker-compose
+
+    # Navigate to the docker-compose file location and start the services
+    - name: Start Docker Compose
+      shell: bash
+      working-directory: ./deploy/docker/prefect-server-v2
+      run: | 
+        docker-compose up -d
+
+#    # Wait for services to be up and running
+#    - name: Wait for services
+#      run: |
+#        echo "Waiting for services to be up..."
+#        sleep 30
+
+#    # Test Prefect service to see if it's running
+#    - name: Test Prefect API
+#      run: curl --retry 5 --retry-delay 10 -v http://localhost:4200/api/health

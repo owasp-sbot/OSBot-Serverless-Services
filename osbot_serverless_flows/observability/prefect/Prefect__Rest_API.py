@@ -7,6 +7,7 @@ from osbot_utils.utils.Status           import status_ok, status_error
 ENV_NAME__PREFECT_CLOUD__API_KEY      = 'PREFECT_CLOUD__API_KEY'
 ENV_NAME__PREFECT_CLOUD__ACCOUNT_ID   = 'PREFECT_CLOUD__ACCOUNT_ID'
 ENV_NAME__PREFECT_CLOUD__WORKSPACE_ID = 'PREFECT_CLOUD__WORKSPACE_ID'
+ENV_NAME__PREFECT_TARGET_SERVER       = 'PREFECT_TARGET_SERVER'
 
 class Prefect__Rest_API(Type_Safe):
 
@@ -21,7 +22,8 @@ class Prefect__Rest_API(Type_Safe):
         return get_env(ENV_NAME__PREFECT_CLOUD__WORKSPACE_ID)
 
     def prefect_api_url(self):
-        return f"https://api.prefect.cloud/api/accounts/{self.account_id()}/workspaces/{self.workspace_id()}/"
+        target_server = get_env(ENV_NAME__PREFECT_TARGET_SERVER,  f"https://api.prefect.cloud/api/accounts/{self.account_id()}/workspaces/{self.workspace_id()}/")
+        return target_server
 
     def get_headers(self):
         return {"Authorization": f"Bearer {self.api_key()}"}                            # Create headers dictionary including authorization token

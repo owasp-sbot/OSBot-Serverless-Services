@@ -23,7 +23,7 @@ env:
   PREFECT_TARGET_SERVER      : ${{ secrets.PREFECT_TARGET_SERVER       }}
 
 jobs:
-  start-prefect-server--and-run-tests:
+  start-prefect-server__and-run-tests:
     name: "Start Prefect and Run Tests"
     runs-on: ubuntu-latest
     steps:
@@ -41,8 +41,6 @@ jobs:
         uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__run-unit-tests@dev
         with:
           test_target: 'tests/integration/observability'
-    needs:
-      - start-prefect-server
 
   run-unit-and-integration-tests:
     if: False

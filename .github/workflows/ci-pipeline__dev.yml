@@ -23,21 +23,15 @@ env:
   PREFECT_TARGET_SERVER      : ${{ secrets.PREFECT_TARGET_SERVER       }}
 
 jobs:
-  start-prefect-server:
-    name: "Start Prefect Server"
+  start-prefect-server__and-run-tests:
+    name: "Start Prefect and Run Tests"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
       - name: Start Prefect Server
         uses: ./.github/actions/docker__start-prefect-server
-
-  run-prefect-tests:
-    name: "Run Prefect Tests"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
+  
       - name: Install Dependencies
         uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__install@dev
         with:

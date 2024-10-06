@@ -1,13 +1,8 @@
-from urllib.parse import urljoin, quote
-
 import requests
-from osbot_utils.utils.Http import url_join_safe
-
-from osbot_utils.utils.Dev import pprint
-
+from osbot_utils.utils.Http             import url_join_safe
 from osbot_utils.utils.Env              import get_env
 from osbot_utils.base_classes.Type_Safe import Type_Safe
-from osbot_utils.utils.Status import status_ok, status_error
+from osbot_utils.utils.Status           import status_ok, status_error
 
 ENV_NAME__PREFECT_CLOUD__API_KEY      = 'PREFECT_CLOUD__API_KEY'
 ENV_NAME__PREFECT_CLOUD__ACCOUNT_ID   = 'PREFECT_CLOUD__ACCOUNT_ID'
@@ -65,11 +60,11 @@ class Prefect__Rest_API(Type_Safe):
     # request helpers
 
     def read(self, target, target_id):
-        path = f'{target}/{target_id}'
+        path = f'/{target}/{target_id}'
         return self.requests__get(path)
 
     def filter(self, target, limit=5):          # todo: add support for fetching all items
-        path = f'../{target}/filter'
+        path = f'/{target}/filter'
         data = { "sort" : "CREATED_DESC",
                  "limit": limit         }
         return self.requests__post(path, data)

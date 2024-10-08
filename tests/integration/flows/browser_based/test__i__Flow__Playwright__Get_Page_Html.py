@@ -1,5 +1,7 @@
 from unittest                                                                   import TestCase
 
+from osbot_utils.utils.Misc import list_set
+
 from osbot_utils.helpers.flows.Flow import Flow
 
 from osbot_utils.utils.Dev import pprint
@@ -25,8 +27,9 @@ class test__i__Flow__Playwright__Get_Page_Html(TestCase):
                                              'print_finished_message' : False,
                                              'print_logs'             : False,
                                              'print_none_return_value': False}
-            _.flow_config.print_logs = True
             assert _.execute_flow() == _
+            assert list_set(_.data) == ['page_content']
+            assert 'Google' in _.data.get('page_content')
 
 
 

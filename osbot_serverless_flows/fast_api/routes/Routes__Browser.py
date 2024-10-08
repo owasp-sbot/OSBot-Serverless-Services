@@ -5,9 +5,9 @@ from starlette.responses import StreamingResponse
 
 from osbot_utils.decorators.methods.cache_on_self import cache_on_self
 
-from osbot_serverless_flows.flows.browser_based.Flow__Playwright__Get_Page_Html import Flow__Playwright__Get_Page_Html
-from osbot_serverless_flows.flows.browser_based.Flow__Playwright__Get_Page_Pdf import Flow__Playwright__Get_Page_Pdf
-from osbot_serverless_flows.flows.browser_based.Flow__Playwright__Get_Page_Screenshot import \
+from osbot_serverless_flows.flows.browser.Flow__Playwright__Get_Page_Html import Flow__Playwright__Get_Page_Html
+from osbot_serverless_flows.flows.browser.Flow__Playwright__Get_Page_Pdf import Flow__Playwright__Get_Page_Pdf
+from osbot_serverless_flows.flows.browser.Flow__Playwright__Get_Page_Screenshot import \
     Flow__Playwright__Get_Page_Screenshot
 from osbot_serverless_flows.playwright.Playwright__Serverless                   import Playwright__Serverless
 

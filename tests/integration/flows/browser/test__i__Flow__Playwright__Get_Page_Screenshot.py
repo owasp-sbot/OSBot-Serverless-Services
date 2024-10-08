@@ -3,7 +3,7 @@ from unittest                                                                   
 from tests.integration.fast_api_objs_for_tests import ensure_browser_is_installed
 from osbot_utils.utils.Misc import base64_to_bytes
 
-from osbot_serverless_flows.flows.browser_based.Flow__Playwright__Get_Page_Screenshot import Flow__Playwright__Get_Page_Screenshot
+from osbot_serverless_flows.flows.browser.Flow__Playwright__Get_Page_Screenshot import Flow__Playwright__Get_Page_Screenshot
 
 
 class test__i__Flow__Playwright__Get_Page_Screenshot(TestCase):

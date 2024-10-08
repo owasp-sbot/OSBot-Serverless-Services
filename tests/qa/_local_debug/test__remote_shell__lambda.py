@@ -139,7 +139,7 @@ class test_remote_shell_lambda(TestCase):
 
     # def test_invoke_flow_from_pytest(self):
     #     def invoke_flow_from_pytest():
-    #         from osbot_serverless_flows.flows.browser_based.Flow__Playwright__Get_Page_Html import Flow__Playwright__Get_Page_Html
+    #         from osbot_serverless_flows.flows.browser.Flow__Playwright__Get_Page_Html import Flow__Playwright__Get_Page_Html
     #         flow__get_page_html = Flow__Playwright__Get_Page_Html()
     #         flow_data           = flow__get_page_html.run()
     #         flow                = flow__get_page_html.flow()

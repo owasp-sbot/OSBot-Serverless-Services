@@ -9,8 +9,8 @@ runs:
     - name: Start Lambda Docker
       uses: ./.github/actions/docker__start-lambda-docker
 
-    - name: Start Local Prefect Server
-      uses: ./.github/actions/docker__start-prefect-server
+#    - name: Start Local Prefect Server
+#      uses: ./.github/actions/docker__start-prefect-server
 
     - name: Install Dependencies
       uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__install@dev

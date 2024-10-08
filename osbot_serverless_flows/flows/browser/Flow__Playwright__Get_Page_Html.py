@@ -35,7 +35,7 @@ class Flow__Playwright__Get_Page_Html(Type_Safe):
         print(f"got page content with size: {len(page_content)}")
 
     @flow()
-    async def flow(self) -> Flow:
+    async def flow_playwright__get_page_html(self) -> Flow:
         self.check_config()
         await self.launch_browser()
         await self.new_page      ()
@@ -44,6 +44,6 @@ class Flow__Playwright__Get_Page_Html(Type_Safe):
         return 'all done'
 
     def run(self):
-        with self.flow() as _:
+        with self.flow_playwright__get_page_html() as _:
             _.execute_flow()
             return _.data

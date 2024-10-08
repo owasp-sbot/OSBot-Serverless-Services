@@ -50,7 +50,7 @@ class Flow__Playwright__Get_Page_Pdf(Type_Safe):             # refactor with Flo
         print(f"converted to base64 with size: {len(pdf_base64)}")
 
     @flow()
-    async def flow(self) -> Flow:
+    async def flow_playwright__get_page_pdf(self) -> Flow:
         self.check_config()
         await self.launch_browser()
         await self.new_page      ()
@@ -60,6 +60,6 @@ class Flow__Playwright__Get_Page_Pdf(Type_Safe):             # refactor with Flo
         return 'all done'
 
     def run(self):
-        with self.flow() as _:
+        with self.flow_playwright__get_page_pdf() as _:
             _.execute_flow()
             return _.data

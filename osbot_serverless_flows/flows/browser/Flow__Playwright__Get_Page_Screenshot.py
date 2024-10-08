@@ -50,7 +50,7 @@ class Flow__Playwright__Get_Page_Screenshot(Type_Safe):             # refactor w
         print(f"converted to base64 with size: {len(screenshot_base64)}")
 
     @flow()
-    async def flow(self) -> Flow:
+    async def flow_playwright__get_page_screenshot(self) -> Flow:
         self.check_config()
         await self.launch_browser    ()
         await self.new_page          ()
@@ -60,6 +60,6 @@ class Flow__Playwright__Get_Page_Screenshot(Type_Safe):             # refactor w
         return 'all done'
 
     def run(self):
-        with self.flow() as _:
+        with self.flow_playwright__get_page_screenshot() as _:
             _.execute_flow()
             return _.data

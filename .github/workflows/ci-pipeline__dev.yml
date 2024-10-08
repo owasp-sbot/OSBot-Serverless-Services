@@ -6,21 +6,20 @@ on:
       - dev
 
 env:
-  GIT__BRANCH            : 'dev'
-  RELEASE_TYPE           : 'minor'
-  PACKAGE_NAME           : 'osbot_serverless_flows'
-  DOCKER__CONTEXT        : "."
-  DOCKER__HTTP_PORT      : 5002
-  DOCKER__FILE           : './deploy/docker/osbot-serverless-flows/Dockerfile'
-  DOCKER__FILE__FOR_TESTS: './deploy/docker/osbot-serverless-flows__integration-tests/Dockerfile'
-  DOCKER_HUB__TOKEN      : ${{ secrets.DOCKER_HUB__TOKEN      }}
-  DOCKER_HUB__USERNAME   : "diniscruz"
-  LAMBDA_SHELL__AUTH_KEY : ${{ secrets.LAMBDA_SHELL__AUTH_KEY }}
+  GIT__BRANCH                : 'dev'
+  RELEASE_TYPE               : 'minor'
+  PACKAGE_NAME               : 'osbot_serverless_flows'
+  DOCKER__CONTEXT            : "."
+  DOCKER__HTTP_PORT          : 5002
+  DOCKER__FILE               : './deploy/docker/osbot-serverless-flows/Dockerfile'
+  DOCKER__FILE__FOR_TESTS    : './deploy/docker/osbot-serverless-flows__integration-tests/Dockerfile'
+  DOCKER_HUB__TOKEN          : ${{ secrets.DOCKER_HUB__TOKEN      }}
+  DOCKER_HUB__USERNAME       : "diniscruz"
+  LAMBDA_SHELL__AUTH_KEY     : ${{ secrets.LAMBDA_SHELL__AUTH_KEY }}
 
   PREFECT_CLOUD__API_KEY     : ${{ secrets.PREFECT_CLOUD__API_KEY      }}
   PREFECT_CLOUD__ACCOUNT_ID  : ${{ secrets.PREFECT_CLOUD__ACCOUNT_ID   }}
   PREFECT_CLOUD__WORKSPACE_ID: ${{ secrets.PREFECT_CLOUD__WORKSPACE_ID }}
-  PREFECT_TARGET_SERVER      : ${{ secrets.PREFECT_TARGET_SERVER       }}
 
 jobs:
 

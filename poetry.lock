@@ -608,13 +608,13 @@ psutil = "*"
 
 [[package]]
 name = "osbot-prefect"
-version = "0.2.0"
+version = "0.2.3"
 description = "OWASP Security Bot - Prefect"
 optional = false
 python-versions = "<4.0,>=3.7"
 files = [
-    {file = "osbot_prefect-0.2.0-py3-none-any.whl", hash = "sha256:1fcaebea7d03d59368df4b002c1a76f93d6fd1fedafd914e7b005bbfed108795"},
-    {file = "osbot_prefect-0.2.0.tar.gz", hash = "sha256:c22174524c4f2d262a1da490e17f473b085573660cb186380c0da67660f65255"},
+    {file = "osbot_prefect-0.2.3-py3-none-any.whl", hash = "sha256:c41debd1a8f9a2aefc4869535593e3f4fe9a580e4613d5f52e37809eccfc981f"},
+    {file = "osbot_prefect-0.2.3.tar.gz", hash = "sha256:23a3a9af8bc911b93cda8b45f85787aeeae0788f3c988944b38ee9461aae8480"},
 ]
 
 [package.dependencies]

@@ -1,5 +1,7 @@
 from unittest import TestCase
 
+from osbot_utils.utils.Env import load_dotenv
+
 from osbot_prefect.flows.Flow_Events__To__Prefect_Server import Flow_Events__To__Prefect_Server
 from osbot_utils.utils.Dev import pprint
 
@@ -10,6 +12,7 @@ class test__i__Flow__Http__Raw_Html(TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
+        load_dotenv()
         cls.flow__http_raw_html = Flow__Http__Raw_Html()
 
     def test_run(self):

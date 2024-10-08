@@ -1,0 +1,1 @@
+# so that PyCharm picks up that there are tests in this folder: /tests/integration

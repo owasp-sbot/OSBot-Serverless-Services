@@ -1,5 +1,9 @@
 from unittest import TestCase
 
+from osbot_prefect.utils.Version import version__osbot_prefect
+from osbot_utils.utils.Dev import pprint
+
+from osbot_serverless_flows.fast_api.Fast_API__Serverless_Flows import Fast_API__Serverless_Flows
 from osbot_serverless_flows.fast_api.routes.Routes__Browser import ROUTES__EXPECTED_PATHS__BROWSER
 from osbot_serverless_flows.utils.Version import version__osbot_serverless_flows
 
@@ -20,9 +24,22 @@ class test__i__Fast_API__Serverless_Flows(TestCase):
         cls.fast_api = fast_api__serverless_flows
         cls.client   = client__serverless_flows
 
+    def test__setUp_Class(self):
+        assert type(self.fast_api) is Fast_API__Serverless_Flows
 
     def test_setup(self):
         assert self.fast_api.routes_paths() != []
+
+    def test_setup__prefect_cloud(self):
+        with self.fast_api.flow_events_to_prefect_server().prefect_cloud_api.prefect_rest_api as _:
+            if _.prefect_is_using_local_server():
+                assert _.prefect_api_url()       == 'http://localhost:4200/api'
+                assert _.prefect_is_server_online() is True
+            else:
+                assert _.prefect_api_url().startswith('https://api.prefect.cloud/api/accounts') is True
+                assert _.prefect_is_server_online() is True
+
+        assert self.fast_api.prefect_enabled is True
 
     def test_routes_paths(self):
         assert self.fast_api.routes_paths() == ROUTES__EXPECTED_PATHS

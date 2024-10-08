@@ -1,16 +1,30 @@
-from osbot_fast_api.api.Fast_API import Fast_API
-
-from osbot_serverless_flows.fast_api.routes.Routes__Debug import Routes__Debug
-from osbot_serverless_flows.fast_api.routes.Routes__Info import Routes__Info
+from osbot_fast_api.api.Fast_API                            import Fast_API
+from osbot_prefect.flows.Flow_Events__To__Prefect_Server import Flow_Events__To__Prefect_Server
+from osbot_serverless_flows.fast_api.routes.Routes__Debug   import Routes__Debug
+from osbot_serverless_flows.fast_api.routes.Routes__Info    import Routes__Info
 from osbot_serverless_flows.fast_api.routes.Routes__Browser import Routes__Browser
+from osbot_utils.decorators.methods.cache_on_self           import cache_on_self
 
 
 class Fast_API__Serverless_Flows(Fast_API):
-
+    prefect_enabled : bool = False
 
     def setup(self):
+        self.setup__prefect_cloud()
         super().setup()
         return self
+
+    @cache_on_self
+    def flow_events_to_prefect_server(self):
+        return Flow_Events__To__Prefect_Server()
+
+    def setup__prefect_cloud(self):
+        with self.flow_events_to_prefect_server()  as _:
+            if _.prefect_cloud_api.prefect_rest_api.prefect_is_server_online():
+                print("*****: setup__prefect_cloud - add_event_listener")
+                _.add_event_listener()
+                self.prefect_enabled = True
+
 
 
     def setup_routes(self):

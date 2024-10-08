@@ -1,11 +1,23 @@
-FROM amazon/aws-lambda-python:3.12
+FROM python:3.12-bookworm
 
-ARG VERSION=${VERSION}
+RUN pip install playwright
+RUN playwright install --with-deps chromium
 
-RUN echo "Installing version ${VERSION} of osbot_serverless_flows"
-
-RUN pip install osbot_serverless_flows==${VERSION}
 RUN pip install osbot-aws osbot-fast-api
-RUN pip install requests mangum
+RUN pip install requests mangum httpx
+RUN pip install osbot-playwright bs4
 
-CMD ["osbot_serverless_flows.lambdas.handler.run"]
+COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.8.4 /lambda-adapter /opt/extensions/lambda-adapter
+
+RUN python --version
+ENV PORT=8080
+
+WORKDIR /app
+COPY ../../../osbot_serverless_flows /app/osbot_serverless_flows
+
+ENV PYTHONPATH="/app"
+
+COPY ./deploy/docker/osbot-serverless-flows__playwright/start.sh /app/start.sh
+
+CMD ["./start.sh"]
+

@@ -16,6 +16,10 @@ env:
   DOCKER_HUB__TOKEN      : ${{ secrets.DOCKER_HUB__TOKEN    }}
   DOCKER_HUB__USERNAME   : "diniscruz"
 
+  PREFECT_CLOUD__API_KEY     : ${{ secrets.PREFECT_CLOUD__API_KEY      }}
+  PREFECT_CLOUD__ACCOUNT_ID  : ${{ secrets.PREFECT_CLOUD__ACCOUNT_ID   }}
+  PREFECT_CLOUD__WORKSPACE_ID: ${{ secrets.PREFECT_CLOUD__WORKSPACE_ID }}
+
 jobs:
 
   run-unit-and-integration-tests:

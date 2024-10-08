@@ -2,12 +2,17 @@ services:
   serverless_flows:
     build:
       context: ../../..
-      dockerfile: ./deploy/docker/osbot-serverless-flows/Dockerfile
+      dockerfile: ./deploy/docker/osbot-serverless-flows__integration-tests/Dockerfile
       args:
         VERSION: 0.4.0
     platform: linux/amd64
     container_name: osbot-serverless-flows-web
+    volumes:
+        - ../../../osbot_serverless_flows:/app/osbot_serverless_flows
     ports:
       - "5002:8080"
+#    env_file:
+#      - .env
+
 
 #curl "http://localhost:5002/2015-03-31/functions/function/invocations" -d '{}'

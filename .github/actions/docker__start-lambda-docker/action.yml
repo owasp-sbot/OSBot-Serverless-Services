@@ -28,5 +28,10 @@ runs:
 
     - name: "Run Docker Container"
       shell: bash
+      #run: |
+      #  docker run --name ${{env.PACKAGE_NAME}} -p ${{env.DOCKER__HTTP_PORT}}:8080 -d ${{ env.DOCKER_HUB__USERNAME }}/${{ env.PACKAGE_NAME }}:${{env.VERSION}}
       run: |
-        docker run --name ${{env.PACKAGE_NAME}} -p ${{env.DOCKER__HTTP_PORT}}:8080 -d ${{ env.DOCKER_HUB__USERNAME }}/${{ env.PACKAGE_NAME }}:${{env.VERSION}}    
+        docker run --name ${{env.PACKAGE_NAME}} \
+          -p ${{env.DOCKER__HTTP_PORT}}:8080 \
+          -e LAMBDA_SHELL__AUTH_KEY=${{ env.LAMBDA_SHELL__AUTH_KEY }} \
+          -d ${{ env.DOCKER_HUB__USERNAME }}/${{ env.PACKAGE_NAME }}:${{env.VERSION}}  

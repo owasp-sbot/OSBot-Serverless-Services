@@ -54,17 +54,17 @@ lxml = ["lxml"]
 
 [[package]]
 name = "boto3"
-version = "1.35.36"
+version = "1.35.37"
 description = "The AWS SDK for Python"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "boto3-1.35.36-py3-none-any.whl", hash = "sha256:33735b9449cd2ef176531ba2cb2265c904a91244440b0e161a17da9d24a1e6d1"},
-    {file = "boto3-1.35.36.tar.gz", hash = "sha256:586524b623e4fbbebe28b604c6205eb12f263cc4746bccb011562d07e217a4cb"},
+    {file = "boto3-1.35.37-py3-none-any.whl", hash = "sha256:385ca77bf8ea4ab2d97f6e2435bdb29f77d9301e2f7ac796c2f465753c2adf3c"},
+    {file = "boto3-1.35.37.tar.gz", hash = "sha256:470d981583885859fed2fd1c185eeb01cc03e60272d499bafe41b12625b158c8"},
 ]
 
 [package.dependencies]
-botocore = ">=1.35.36,<1.36.0"
+botocore = ">=1.35.37,<1.36.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.10.0,<0.11.0"
 
@@ -73,13 +73,13 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.35.36"
+version = "1.35.37"
 description = "Low-level, data-driven core of boto 3."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "botocore-1.35.36-py3-none-any.whl", hash = "sha256:64241c778bf2dc863d93abab159e14024d97a926a5715056ef6411418cb9ead3"},
-    {file = "botocore-1.35.36.tar.gz", hash = "sha256:354ec1b766f0029b5d6ff0c45d1a0f9e5007b7d2f3ec89bcdd755b208c5bc797"},
+    {file = "botocore-1.35.37-py3-none-any.whl", hash = "sha256:64f965d4ba7adb8d79ce044c3aef7356e05dd74753cf7e9115b80f477845d920"},
+    {file = "botocore-1.35.37.tar.gz", hash = "sha256:b2b4d29bafd95b698344f2f0577bb67064adbf1735d8a0e3c7473daa59c23ba6"},
 ]
 
 [package.dependencies]
@@ -805,13 +805,13 @@ psutil = "*"
 
 [[package]]
 name = "osbot-prefect"
-version = "0.2.5"
+version = "0.2.7"
 description = "OWASP Security Bot - Prefect"
 optional = false
 python-versions = "<4.0,>=3.7"
 files = [
-    {file = "osbot_prefect-0.2.5-py3-none-any.whl", hash = "sha256:129a7b2d001e0de8873f837f06382b59c6016be4f7476b78bf11ee8488edc0a3"},
-    {file = "osbot_prefect-0.2.5.tar.gz", hash = "sha256:ec55b97f8b0d0da771c2acd9685a669cb135ff34c51a8b19df9cff55e6b05656"},
+    {file = "osbot_prefect-0.2.7-py3-none-any.whl", hash = "sha256:894445d1ab09119f82839715e63d55551edde05344a7ebbd2bccd9eb7e3afb7f"},
+    {file = "osbot_prefect-0.2.7.tar.gz", hash = "sha256:a21cee6bceaad17d30fe6a0218131587d152c51341d2f468b36bdad5c1340b07"},
 ]
 
 [package.dependencies]
@@ -819,13 +819,13 @@ osbot-utils = "*"
 
 [[package]]
 name = "osbot-utils"
-version = "1.55.0"
+version = "1.56.0"
 description = "OWASP Security Bot - Utils"
 optional = false
 python-versions = "<4.0,>=3.7"
 files = [
-    {file = "osbot_utils-1.55.0-py3-none-any.whl", hash = "sha256:cae45ce133615520c727bfa6af8d42938258f553ae2e063405cc43043fc0ad28"},
-    {file = "osbot_utils-1.55.0.tar.gz", hash = "sha256:43a824d2d81bfe6ffa89829ce0f5d822d9203b9f317fb183c15045a66e5d287f"},
+    {file = "osbot_utils-1.56.0-py3-none-any.whl", hash = "sha256:d1a8437a6258c2e624e0c3d4e54f999f1c61d31f38a3cc870af093f8efb975da"},
+    {file = "osbot_utils-1.56.0.tar.gz", hash = "sha256:5952e0075d8a3380029bfb6e57c8efc4c3e851aa61dd17002cb62e23bfacd454"},
 ]
 
 [[package]]
@@ -1389,13 +1389,13 @@ zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
 name = "uvicorn"
-version = "0.31.0"
+version = "0.31.1"
 description = "The lightning-fast ASGI server."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "uvicorn-0.31.0-py3-none-any.whl", hash = "sha256:cac7be4dd4d891c363cd942160a7b02e69150dcbc7a36be04d5f4af4b17c8ced"},
-    {file = "uvicorn-0.31.0.tar.gz", hash = "sha256:13bc21373d103859f68fe739608e2eb054a816dea79189bc3ca08ea89a275906"},
+    {file = "uvicorn-0.31.1-py3-none-any.whl", hash = "sha256:adc42d9cac80cf3e51af97c1851648066841e7cfb6993a4ca8de29ac1548ed41"},
+    {file = "uvicorn-0.31.1.tar.gz", hash = "sha256:f5167919867b161b7bcaf32646c6a94cdbd4c3aa2eb5c17d36bb9aa5cfd8c493"},
 ]
 
 [package.dependencies]

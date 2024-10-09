@@ -7,3 +7,6 @@
 [submodule "modules/OSBot-Prefect"]
 	path = modules/OSBot-Prefect
 	url = git@github.com:owasp-sbot/OSBot-Prefect.git
+[submodule "modules/OSBot-GSuite"]
+	path = modules/OSBot-GSuite
+	url = git@github.com:owasp-sbot/OSBot-GSuite.git

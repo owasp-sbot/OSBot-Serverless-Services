@@ -5,7 +5,8 @@ RUN playwright install --with-deps chromium
 
 RUN pip install osbot-aws osbot-fast-api
 RUN pip install requests mangum httpx
-RUN pip install osbot_playwright
+RUN pip install osbot-playwright bs4
+RUN pip install osbot-prefect osbot-gsuite
 
 COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.8.4 /lambda-adapter /opt/extensions/lambda-adapter
 
@@ -13,8 +14,6 @@ RUN python --version
 ENV PORT=8080
 
 WORKDIR /app
-
-RUN pip install osbot-utils==v1.47.0
 
 COPY ../../../osbot_serverless_flows /app/osbot_serverless_flows
 

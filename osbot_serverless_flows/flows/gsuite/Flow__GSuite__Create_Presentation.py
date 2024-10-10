@@ -56,10 +56,10 @@ class Flow__GSuite__Create_Presentation(Type_Safe):
         print('deleting', self.presentation_id)
         self.gslides.presentation_delete(self.presentation_id)
 
-    @task()
-    def save_pdf_locally(self):
-        local_file = file_create_from_bytes("./test.pdf", self.pdf_bytes)
-        print(f"saved pdf into {local_file}")
+    # @task()
+    # def save_pdf_locally(self):
+    #     local_file = file_create_from_bytes("./test.pdf", self.pdf_bytes)
+    #     print(f"saved pdf into {local_file}")
 
     @flow()
     def flow__create_presentation(self) -> Flow:
@@ -67,7 +67,6 @@ class Flow__GSuite__Create_Presentation(Type_Safe):
         self.editing_presentation   ()
         self.creating_pdf_bytes     ()
         self.deleting_presentation  ()
-        self.save_pdf_locally       ()
         return 'all done'
 
     def run(self):

@@ -20,6 +20,9 @@ env:
   PREFECT_CLOUD__ACCOUNT_ID  : ${{ secrets.PREFECT_CLOUD__ACCOUNT_ID   }}
   PREFECT_CLOUD__WORKSPACE_ID: ${{ secrets.PREFECT_CLOUD__WORKSPACE_ID }}
 
+  GSUITE__OAUTH2__DATA       : ${{ secrets.GSUITE__OAUTH2__DATA   }}
+  GDRIVE__TEMP_FOLDER        : ${{ secrets.GDRIVE__TEMP_FOLDER    }}
+
 jobs:
 
   run-unit-and-integration-tests:

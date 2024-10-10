@@ -22,7 +22,6 @@ class Fast_API__Serverless_Flows(Fast_API):
     def setup__prefect_cloud(self):
         with self.flow_events_to_prefect_server()  as _:
             if _.prefect_cloud_api.prefect_rest_api.prefect_is_server_online():
-                print("*****: setup__prefect_cloud - add_event_listener")
                 _.add_event_listener()
                 self.prefect_enabled = True
 

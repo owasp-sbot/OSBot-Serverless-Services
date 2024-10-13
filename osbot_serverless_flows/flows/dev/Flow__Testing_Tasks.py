@@ -1,3 +1,5 @@
+from osbot_utils.utils.Objects import obj_info
+
 from osbot_utils.helpers.flows import Flow
 from osbot_utils.helpers.flows.decorators.flow import flow
 
@@ -21,14 +23,15 @@ class Flow__Testing_Tasks(Type_Safe):
 
     @task()
     def task_3(self):
-        print('inside task_3')
+        print(f'inside task_3')
         return "task 3 data"
 
     @flow()
-    def flow__testing_tasks(self) -> Flow:
+    def flow__testing_tasks(self, this_flow: Flow) -> Flow:
+        print(f"in flow: {this_flow.flow_name}")
         self.task_1()
         self.task_2()
-        return "flow completed"
+        return f"flow completed: {this_flow.flow_id} "
 
     def run(self) -> Flow:
         with self.flow__testing_tasks() as _:

@@ -1,11 +1,7 @@
-from osbot_utils.utils.Objects import obj_info
-
-from osbot_utils.helpers.flows import Flow
-from osbot_utils.helpers.flows.decorators.flow import flow
-
-from osbot_utils.helpers.flows.decorators.task import task
-
-from osbot_utils.base_classes.Type_Safe import Type_Safe
+from osbot_utils.helpers.flows                  import Flow
+from osbot_utils.helpers.flows.decorators.flow  import flow
+from osbot_utils.helpers.flows.decorators.task  import task
+from osbot_utils.base_classes.Type_Safe         import Type_Safe
 
 
 class Flow__Testing_Tasks(Type_Safe):
@@ -33,6 +29,6 @@ class Flow__Testing_Tasks(Type_Safe):
         self.task_2()
         return f"flow completed: {this_flow.flow_id} "
 
-    def run(self) -> Flow:
+    def run(self, flow_run_params) -> Flow:
         with self.flow__testing_tasks() as _:
-            return _.execute_flow()
+            return _.execute_flow(flow_run_params)

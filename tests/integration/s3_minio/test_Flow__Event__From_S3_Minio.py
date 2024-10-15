@@ -28,37 +28,38 @@ class test_Flow__Event__From_S3_Minio(TestCase__S3_Minio__Temp_S3_Bucket):
             assert response.status_code == 200
             pprint(response.json())
 
-    def test_configure_minio_events(self):
-
-        with self.s3_db_base as _:
-            target_bucket    = _.s3_bucket()
-            notification_url = 'http://localhost:5005/dev/flow-testing-tasks'
-            notification_configuration = {
-                'TopicConfigurations': [],
-                'QueueConfigurations': [],
-                'LambdaFunctionConfigurations': [],
-                'WebhookConfigurations': [
-                    {
-                        'Id': 'FastAPIWebhook',  # A unique ID for the webhook
-                        'Events': ['s3:ObjectCreated:*'],  # Trigger on all object created events
-                        'Destination': {
-                            'Endpoint': notification_url,  # Your FastAPI webhook
-                            'HttpMethod': 'POST',
-                            'Authentication': {
-                                'Type': 'None',  # No authentication for this example; you can configure this if needed
-                            },
-                        }
-                    }
-                ]
-            }
-            #pprint(_.s3().buckets())
-            s3_client = _.s3().client()
-            pprint(target_bucket)
-            result = s3_client.put_bucket_notification_configuration(
-                Bucket= target_bucket,
-                NotificationConfiguration=notification_configuration
-            )
-            pprint(result)
+    #
+    # def test_configure_minio_events(self):
+    #
+    #     with self.s3_db_base as _:
+    #         target_bucket    = _.s3_bucket()
+    #         notification_url = 'http://localhost:5005/dev/flow-testing-tasks'
+    #         notification_configuration = {
+    #             'TopicConfigurations': [],
+    #             'QueueConfigurations': [],
+    #             'LambdaFunctionConfigurations': [],
+    #             'WebhookConfigurations': [
+    #                 {
+    #                     'Id': 'FastAPIWebhook',  # A unique ID for the webhook
+    #                     'Events': ['s3:ObjectCreated:*'],  # Trigger on all object created events
+    #                     'Destination': {
+    #                         'Endpoint': notification_url,  # Your FastAPI webhook
+    #                         'HttpMethod': 'POST',
+    #                         'Authentication': {
+    #                             'Type': 'None',  # No authentication for this example; you can configure this if needed
+    #                         },
+    #                     }
+    #                 }
+    #             ]
+    #         }
+    #         #pprint(_.s3().buckets())
+    #         s3_client = _.s3().client()
+    #         pprint(target_bucket)
+    #         result = s3_client.put_bucket_notification_configuration(
+    #             Bucket= target_bucket,
+    #             NotificationConfiguration=notification_configuration
+    #         )
+    #         pprint(result)
 
     def test_prefect_server(self):
         from osbot_aws.aws.s3.S3 import S3

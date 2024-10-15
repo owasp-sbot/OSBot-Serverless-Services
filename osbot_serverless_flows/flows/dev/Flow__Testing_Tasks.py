@@ -29,6 +29,6 @@ class Flow__Testing_Tasks(Type_Safe):
         self.task_2()
         return f"flow completed: {this_flow.flow_id} "
 
-    def run(self, flow_run_params) -> Flow:
+    def run(self, flow_run_params=None) -> Flow:
         with self.flow__testing_tasks() as _:
             return _.execute_flow(flow_run_params)

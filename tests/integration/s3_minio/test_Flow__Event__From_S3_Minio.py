@@ -1,18 +1,10 @@
-from unittest import TestCase
-
+import pytest
 import requests
-from osbot_utils.context_managers.print_duration import print_duration
-
-from osbot_utils.utils.Misc import random_text
-
-from osbot_aws.aws.session.Session__Kwargs__S3 import Session__Kwargs__S3
-
-from osbot_aws.testing.TestCase__S3_Minio__Temp_S3_Bucket import TestCase__S3_Minio__Temp_S3_Bucket
-from osbot_utils.utils.Dev import pprint
-
+from osbot_aws.testing.TestCase__S3_Minio__Temp_S3_Bucket       import TestCase__S3_Minio__Temp_S3_Bucket
+from osbot_utils.utils.Dev                                      import pprint
 from osbot_serverless_flows.s3_minio.Flow__Event__From_S3_Minio import Flow__Event__From_S3_Minio
 
-
+@pytest.mark.skip("needs rewriting to use LocalStack")
 class test_Flow__Event__From_S3_Minio(TestCase__S3_Minio__Temp_S3_Bucket):
 
     @classmethod

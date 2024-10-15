@@ -19,4 +19,4 @@ class test__i__Flow__Http__Raw_Html(TestCase):
         with Flow_Events__To__Prefect_Server():
             with self.flow__http_raw_html.flow__http_raw_html() as _:
                 flow = _.execute_flow()
-                pprint(flow)
+                assert flow.flow_return_value == 'to be implemented'

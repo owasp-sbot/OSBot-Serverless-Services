@@ -24,7 +24,7 @@ class Flow__Http__Raw_Html(Type_Safe):
 
     @task()
     def during_http_request(self):
-        wait_for(0.5)
+        wait_for(0.1)
         print('during_http_request')
 
     @task()
@@ -34,6 +34,7 @@ class Flow__Http__Raw_Html(Type_Safe):
     @flow()
     async def flow__http_raw_html(self) -> Flow:
         self.check_config       ()
+        return 'to be implemented'
 
 
     def run(self):

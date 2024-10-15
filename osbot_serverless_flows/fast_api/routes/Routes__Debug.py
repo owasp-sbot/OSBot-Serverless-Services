@@ -2,6 +2,8 @@ from osbot_aws.apis.shell.Lambda_Shell  import Lambda_Shell, SHELL_VAR
 from osbot_fast_api.api.Fast_API_Routes import Fast_API_Routes
 from fastapi                            import Request
 
+ROUTES__EXPECTED_PATHS__DEBUG = ['/debug/lambda-shell']
+
 class Routes__Debug(Fast_API_Routes):
     tag : str = 'debug'
 

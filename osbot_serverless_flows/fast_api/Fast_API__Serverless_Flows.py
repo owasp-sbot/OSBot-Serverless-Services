@@ -1,6 +1,7 @@
 from osbot_fast_api.api.Fast_API                            import Fast_API
 from osbot_prefect.flows.Flow_Events__To__Prefect_Server import Flow_Events__To__Prefect_Server
 from osbot_serverless_flows.fast_api.routes.Routes__Debug   import Routes__Debug
+from osbot_serverless_flows.fast_api.routes.Routes__Dev import Routes__Dev
 from osbot_serverless_flows.fast_api.routes.Routes__GSuite import Routes__GSuite
 from osbot_serverless_flows.fast_api.routes.Routes__Info    import Routes__Info
 from osbot_serverless_flows.fast_api.routes.Routes__Browser import Routes__Browser
@@ -29,6 +30,7 @@ class Fast_API__Serverless_Flows(Fast_API):
 
     def setup_routes(self):
         self.add_routes(Routes__Info   )
+        self.add_routes(Routes__Dev    )
         self.add_routes(Routes__Debug  )
         self.add_routes(Routes__Browser)
         self.add_routes(Routes__GSuite )

@@ -1,5 +1,5 @@
 from unittest                                                import TestCase
-from integration.fast_api_objs_for_tests                     import fast_api__local_stack
+from tests.integration.fast_api_objs_for_tests               import fast_api__local_stack
 from osbot_serverless_flows.Serverless_Flows__Server_Config  import DEFAULT__SERVERLESS_FLOWS__AWS_ACCOUNT_ID
 from osbot_serverless_flows.Serverless_Flows__Shared_Objects import serverless_flows__shared_objects
 

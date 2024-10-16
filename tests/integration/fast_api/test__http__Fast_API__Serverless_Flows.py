@@ -3,6 +3,8 @@ from unittest                                    import TestCase
 from fastapi                                                    import FastAPI
 from osbot_fast_api.utils.Fast_API_Server                       import Fast_API_Server
 from osbot_fast_api.utils.Version                               import version__osbot_fast_api
+
+from osbot_serverless_flows.Serverless_Flows__Shared_Objects import serverless_flows__shared_objects
 from osbot_utils.utils.Misc                                     import list_set
 from tests.integration.fast_api_objs_for_tests                  import fast_api__serverless_flows
 from osbot_serverless_flows.fast_api.Fast_API__Serverless_Flows import Fast_API__Serverless_Flows
@@ -46,3 +48,11 @@ class test__http__Fast_API__Serverless_Flows(TestCase):
         assert response.json() == {'flow_result': f'flow completed: {flow_run_id} ',
                                     'post_data' : {'answer': 42                 }}
 
+
+        # confirm logs where saved to Local_Stack's S3
+        with fast_api__serverless_flows.flow_events_to_s3() as _:
+            s3_path_segments = _.s3_key_generator.create_path_elements__from_when()
+            s3_path_segments.append(flow_run_id)
+            s3_folder       = '/'.join(s3_path_segments)
+
+            assert len(_.s3().find_files(_.s3_bucket, s3_folder)) > 0

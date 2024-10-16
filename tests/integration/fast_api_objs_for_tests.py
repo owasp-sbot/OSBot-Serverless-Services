@@ -1,19 +1,29 @@
-from osbot_serverless_flows.fast_api.Fast_API__Serverless_Flows             import Fast_API__Serverless_Flows
-from osbot_serverless_flows.utils.OSBot_Serverless_Flows__Local_Stack       import OSBot_Serverless_Flows__Local_Stack
-from osbot_utils.context_managers.capture_duration import capture_duration
+from osbot_aws.testing.Temp__Random__AWS_Credentials import Temp_AWS_Credentials
 
-DEFAULT_TEST__AWS_ACCOUNT_ID = '0000111100001111'
+from osbot_utils.utils.Dev import pprint
 
-with OSBot_Serverless_Flows__Local_Stack() as _:
-    osbot_serverless__flows_local_stack               = _
-    _.temp_asw_credentials.env_vars['AWS_ACCOUNT_ID'] = DEFAULT_TEST__AWS_ACCOUNT_ID
-    _.activate()                                            # todo : see side effects of putting this here
+from osbot_serverless_flows.Serverless_Flows__Server_Config import DEFAULT__SERVERLESS_FLOWS__AWS_ACCOUNT_ID, \
+    ENV_NAME__SERVERLESS_FLOWS__USE_LOCAL_STACK, serverless_flows__server_config
+from osbot_utils.utils.Env import set_env
 
+from osbot_local_stack.local_stack.Local_Stack                  import Local_Stack
+from osbot_serverless_flows.fast_api.Fast_API__Serverless_Flows import Fast_API__Serverless_Flows
+from osbot_utils.context_managers.capture_duration              import capture_duration
+                                      # todo : see side effects of putting this here
+
+def setup_env_vars():
+    Temp_AWS_Credentials().set_vars()
+    set_env('AWS_ACCOUNT_ID'                      , DEFAULT__SERVERLESS_FLOWS__AWS_ACCOUNT_ID)
+    set_env(ENV_NAME__SERVERLESS_FLOWS__USE_LOCAL_STACK, 'True')
+    serverless_flows__server_config.setup()
 
 with capture_duration() as duration:
+    setup_env_vars()
+    fast_api__local_stack      = Local_Stack()
     fast_api__serverless_flows =  Fast_API__Serverless_Flows()
-    fast_api__serverless_flows.setup()                           # setup_server
+    fast_api__serverless_flows.setup()                                               # setup_server
     client__serverless_flows = fast_api__serverless_flows.client()
+    assert fast_api__local_stack.is_local_stack_configured_and_available() is True
 
 assert duration.seconds < 1         # make sure the setup time is less than 1 second
 

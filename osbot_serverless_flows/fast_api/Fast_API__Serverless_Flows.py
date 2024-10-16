@@ -1,16 +1,16 @@
-from osbot_fast_api.api.Fast_API                            import Fast_API
-
-from osbot_aws.flows.Flow_Events__To__S3 import Flow_Events__To__S3
-from osbot_local_stack.local_stack.Local_Stack import Local_Stack
-from osbot_prefect.flows.Flow_Events__To__Prefect_Server import Flow_Events__To__Prefect_Server
-from osbot_serverless_flows.Serverless_Flows__Server_Config import serverless_flows__server_config
+from osbot_fast_api.api.Fast_API                             import Fast_API
+from osbot_utils.utils.Env                                   import load_dotenv
+from osbot_aws.flows.Flow_Events__To__S3                     import Flow_Events__To__S3
+from osbot_local_stack.local_stack.Local_Stack               import Local_Stack
+from osbot_prefect.flows.Flow_Events__To__Prefect_Server     import Flow_Events__To__Prefect_Server
+from osbot_serverless_flows.Serverless_Flows__Server_Config  import serverless_flows__server_config
 from osbot_serverless_flows.Serverless_Flows__Shared_Objects import serverless_flows__shared_objects
-from osbot_serverless_flows.fast_api.routes.Routes__Debug   import Routes__Debug
-from osbot_serverless_flows.fast_api.routes.Routes__Dev import Routes__Dev
-from osbot_serverless_flows.fast_api.routes.Routes__GSuite import Routes__GSuite
-from osbot_serverless_flows.fast_api.routes.Routes__Info    import Routes__Info
-from osbot_serverless_flows.fast_api.routes.Routes__Browser import Routes__Browser
-from osbot_utils.decorators.methods.cache_on_self           import cache_on_self
+from osbot_serverless_flows.fast_api.routes.Routes__Debug    import Routes__Debug
+from osbot_serverless_flows.fast_api.routes.Routes__Dev      import Routes__Dev
+from osbot_serverless_flows.fast_api.routes.Routes__GSuite   import Routes__GSuite
+from osbot_serverless_flows.fast_api.routes.Routes__Info     import Routes__Info
+from osbot_serverless_flows.fast_api.routes.Routes__Browser  import Routes__Browser
+from osbot_utils.decorators.methods.cache_on_self            import cache_on_self
 
 
 class Fast_API__Serverless_Flows(Fast_API):
@@ -18,6 +18,7 @@ class Fast_API__Serverless_Flows(Fast_API):
     flow_events_to_s3_enabled : bool = False
 
     def setup(self):
+        serverless_flows__server_config.setup()
         self.setup__local_stack()
         self.setup__prefect_cloud()
         super().setup()

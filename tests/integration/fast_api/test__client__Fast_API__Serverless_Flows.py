@@ -21,7 +21,7 @@ ROUTES__EXPECTED_PATHS = sorted([ ] +
                                 ROUTES__EXPECTED_PATHS__FAST_API +
                                 ROUTES__EXPECTED_PATHS__GSUITE   )
 
-class test__i__Fast_API__Serverless_Flows(TestCase):
+class test__client__Fast_API__Serverless_Flows(TestCase):
 
     @classmethod
     def setUpClass(cls):

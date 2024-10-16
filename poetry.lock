@@ -737,19 +737,18 @@ signedtoken = ["cryptography (>=3.0.0)", "pyjwt (>=2.0.0,<3)"]
 
 [[package]]
 name = "osbot-aws"
-version = "2.36.9"
+version = "2.36.10"
 description = "OWASP Security Bot - AWS"
 optional = false
 python-versions = "<4.0,>=3.7"
 files = [
-    {file = "osbot_aws-2.36.9-py3-none-any.whl", hash = "sha256:c7da87f26ef614175e3319e7e39265769ba4a58c7d41550cd9d2a37a629a5d12"},
-    {file = "osbot_aws-2.36.9.tar.gz", hash = "sha256:2dee0bffb3ded6ab1ec746f7d29335b294b2ef3589aa0c0d0d56f911e378c0a9"},
+    {file = "osbot_aws-2.36.10-py3-none-any.whl", hash = "sha256:5e0b582813c55843a059dc30ba521f049da3d309b73bf5f3ba30da4d537d59e3"},
+    {file = "osbot_aws-2.36.10.tar.gz", hash = "sha256:07c92b536c9a9549a7e379e9e7b492e346379b00257b40be8475b13f08317254"},
 ]
 
 [package.dependencies]
 boto3 = "*"
 osbot-utils = "*"
-python-dotenv = "*"
 
 [[package]]
 name = "osbot-fast-api"
@@ -819,13 +818,13 @@ osbot-utils = "*"
 
 [[package]]
 name = "osbot-utils"
-version = "1.61.0"
+version = "1.62.0"
 description = "OWASP Security Bot - Utils"
 optional = false
 python-versions = "<4.0,>=3.7"
 files = [
-    {file = "osbot_utils-1.61.0-py3-none-any.whl", hash = "sha256:0704f8af4e023b7aee5eb15181f45345aceb733c8bb858a4662dc0c5a887fe7f"},
-    {file = "osbot_utils-1.61.0.tar.gz", hash = "sha256:c6adafd3d64a5975ebcb4453d3710528240168f56ae96f6462e9d4dfbc2d4127"},
+    {file = "osbot_utils-1.62.0-py3-none-any.whl", hash = "sha256:1a64a4aefeed4f9182b0ed8326f7785ce72db515acf2c634996d5308c7f88638"},
+    {file = "osbot_utils-1.62.0.tar.gz", hash = "sha256:af265c7b0a9500ec0af01a587840f8b50ae25f7b79467f39cae1697675878aeb"},
 ]
 
 [[package]]
@@ -1167,20 +1166,6 @@ files = [
 
 [package.dependencies]
 six = ">=1.5"
-
-[[package]]
-name = "python-dotenv"
-version = "1.0.1"
-description = "Read key-value pairs from a .env file and set them as environment variables"
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "python-dotenv-1.0.1.tar.gz", hash = "sha256:e324ee90a023d808f1959c46bcbc04446a10ced277783dc6ee09987c37ec10ca"},
-    {file = "python_dotenv-1.0.1-py3-none-any.whl", hash = "sha256:f7b63ef50f1b690dddf550d03497b66d609393b40b564ed0d674909a68ebf16a"},
-]
-
-[package.extras]
-cli = ["click (>=5.0)"]
 
 [[package]]
 name = "requests"

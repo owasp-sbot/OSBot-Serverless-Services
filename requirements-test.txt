@@ -1,5 +1,6 @@
-# for testing
+# needed for pytest execution
 pytest
-coverage
+coveralls
 
-
+# used in tests
+osbot-local-stack

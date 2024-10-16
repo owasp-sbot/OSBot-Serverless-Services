@@ -1,11 +1,10 @@
 from unittest                                                   import TestCase
-
-from osbot_serverless_flows.fast_api.routes.Routes__Debug import ROUTES__EXPECTED_PATHS__DEBUG
+from osbot_serverless_flows.fast_api.routes.Routes__Debug       import ROUTES__EXPECTED_PATHS__DEBUG
 from osbot_serverless_flows.fast_api.routes.Routes__Dev         import ROUTES__EXPECTED_PATHS__DEV
 from osbot_serverless_flows.fast_api.routes.Routes__GSuite      import ROUTES__EXPECTED_PATHS__GSUITE
 from osbot_serverless_flows.fast_api.Fast_API__Serverless_Flows import Fast_API__Serverless_Flows
 from osbot_serverless_flows.fast_api.routes.Routes__Browser     import ROUTES__EXPECTED_PATHS__BROWSER
-from osbot_serverless_flows.fast_api.routes.Routes__Info import ROUTES__EXPECTED_PATHS__INFO
+from osbot_serverless_flows.fast_api.routes.Routes__Info        import ROUTES__EXPECTED_PATHS__INFO
 from osbot_serverless_flows.utils.Version                       import version__osbot_serverless_flows
 from tests.integration.fast_api_objs_for_tests                  import fast_api__serverless_flows, client__serverless_flows
 
@@ -21,7 +20,7 @@ ROUTES__EXPECTED_PATHS = sorted([ ] +
                                 ROUTES__EXPECTED_PATHS__FAST_API +
                                 ROUTES__EXPECTED_PATHS__GSUITE   )
 
-class test__i__Fast_API__Serverless_Flows(TestCase):
+class test__client__Fast_API__Serverless_Flows(TestCase):
 
     @classmethod
     def setUpClass(cls):

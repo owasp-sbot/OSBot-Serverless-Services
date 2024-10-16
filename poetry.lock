@@ -737,13 +737,13 @@ signedtoken = ["cryptography (>=3.0.0)", "pyjwt (>=2.0.0,<3)"]
 
 [[package]]
 name = "osbot-aws"
-version = "2.36.10"
+version = "2.36.13"
 description = "OWASP Security Bot - AWS"
 optional = false
 python-versions = "<4.0,>=3.7"
 files = [
-    {file = "osbot_aws-2.36.10-py3-none-any.whl", hash = "sha256:5e0b582813c55843a059dc30ba521f049da3d309b73bf5f3ba30da4d537d59e3"},
-    {file = "osbot_aws-2.36.10.tar.gz", hash = "sha256:07c92b536c9a9549a7e379e9e7b492e346379b00257b40be8475b13f08317254"},
+    {file = "osbot_aws-2.36.13-py3-none-any.whl", hash = "sha256:e14f52569cb8d54d5acf31fd08251c8d58f272b16a44729c63a642fa0c29c240"},
+    {file = "osbot_aws-2.36.13.tar.gz", hash = "sha256:7ccdd410145a1aa7aec28cd1f66c600da174a0910bba72894196ce31962445d5"},
 ]
 
 [package.dependencies]
@@ -784,6 +784,20 @@ google-api-python-client = "*"
 google-auth = "*"
 google-auth-httplib2 = "*"
 google-auth-oauthlib = "*"
+osbot-aws = "*"
+
+[[package]]
+name = "osbot-local-stack"
+version = "0.2.0"
+description = "OWASP Security Bot - LLM"
+optional = false
+python-versions = "<4.0,>=3.11"
+files = [
+    {file = "osbot_local_stack-0.2.0-py3-none-any.whl", hash = "sha256:cdbb0656c61a1a5d2756286a0e966af6e198ee1316bfe7c928bb42950d80489c"},
+    {file = "osbot_local_stack-0.2.0.tar.gz", hash = "sha256:869882fa386f095b74816255c0d2cd00569a04881cdb4da6f128bb1d0f3cca3d"},
+]
+
+[package.dependencies]
 osbot-aws = "*"
 
 [[package]]
@@ -1393,4 +1407,4 @@ standard = ["colorama (>=0.4)", "httptools (>=0.5.0)", "python-dotenv (>=0.13)",
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "63ccd121494807985e3727113b9ff467cdbefd9abe6be22f7001a7e1edd1aa9f"
+content-hash = "df109032a641a22a8cec53eb4a3cbf44d350e8c19d3baae75a8989f5d5306680"

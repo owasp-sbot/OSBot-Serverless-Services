@@ -1,5 +1,5 @@
-from unittest import TestCase
-from tests.integration.fast_api_objs_for_tests import client__serverless_flows
+from unittest                                   import TestCase
+from tests.integration.fast_api_objs_for_tests  import client__serverless_flows
 
 
 class test__i__Playwright__Browser(TestCase):

@@ -1,7 +1,6 @@
 from unittest import TestCase
 
-from integration.fast_api_objs_for_tests import osbot_serverless__flows_local_stack, DEFAULT_TEST__AWS_ACCOUNT_ID
-from osbot_aws.AWS_Config import aws_config
+from tests.integration.fast_api_objs_for_tests                           import osbot_serverless__flows_local_stack, DEFAULT_TEST__AWS_ACCOUNT_ID
 from osbot_serverless_flows.utils.OSBot_Serverless_Flows__Shared_Objects import osbot_serverless_flows__shared_objects
 
 from osbot_utils.utils.Dev import pprint

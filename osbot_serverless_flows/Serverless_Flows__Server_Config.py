@@ -2,7 +2,7 @@ from osbot_utils.utils.Env import get_env
 from osbot_utils.base_classes.Type_Safe import Type_Safe
 
 
-DEFAULT__SERVERLESS_FLOWS__AWS_ACCOUNT_ID   = '0000111100001111'
+DEFAULT__SERVERLESS_FLOWS__AWS_ACCOUNT_ID   = '000011110000'
 ENV_NAME__SERVERLESS_FLOWS__USE_LOCAL_STACK = 'SERVERLESS_FLOWS__USE_LOCAL_STACK'
 
 class Serverless_Flows__Server_Config(Type_Safe):

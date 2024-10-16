@@ -4,7 +4,7 @@ from osbot_utils.utils.Dev import pprint
 
 from osbot_serverless_flows.Serverless_Flows__Server_Config import DEFAULT__SERVERLESS_FLOWS__AWS_ACCOUNT_ID, \
     ENV_NAME__SERVERLESS_FLOWS__USE_LOCAL_STACK, serverless_flows__server_config
-from osbot_utils.utils.Env import set_env
+from osbot_utils.utils.Env import set_env, in_github_action
 
 from osbot_local_stack.local_stack.Local_Stack                  import Local_Stack
 from osbot_serverless_flows.fast_api.Fast_API__Serverless_Flows import Fast_API__Serverless_Flows
@@ -25,7 +25,12 @@ with capture_duration() as duration:
     client__serverless_flows = fast_api__serverless_flows.client()
     assert fast_api__local_stack.is_local_stack_configured_and_available() is True
 
-assert duration.seconds < 1         # make sure the setup time is less than 1 second
+print(f"************* DURATION ***********")
+print(f"****    {duration.seconds}" )
+if in_github_action():
+    assert duration.seconds < 5         # give it more time when running in github actions
+else:
+    assert duration.seconds < 1         # make sure the setup time is less than 1 second
 
 
 def ensure_browser_is_installed():

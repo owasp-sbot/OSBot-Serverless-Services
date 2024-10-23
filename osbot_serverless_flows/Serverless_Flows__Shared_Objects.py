@@ -6,7 +6,7 @@ class Serverless_Flows__Shared_Objects(Type_Safe):
 
     def s3_db_flows(self):
         s3_db_flows = S3_DB__Flows()
-        s3_db_flows.setup()             # will create buckey if needed
+        s3_db_flows.setup()             # will create bucket if needed
         return s3_db_flows
 
 serverless_flows__shared_objects = Serverless_Flows__Shared_Objects()
